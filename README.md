@@ -1,27 +1,46 @@
-# Drope Studio (React)
+# Drope Studio (React + Vite)
 
-Site do Drope Studio convertido para React (Vite).
+Site do Drope Studio convertido para React (Vite). O projeto mantém as seções, componentes, hooks, estilos, mídias e páginas estáticas dos cases.
 
-## Como rodar no computador
-1. Instale o Node.js (versão 18 ou superior).
-2. Dentro da pasta do projeto, rode:
-   - `npm install`
-   - `npm run dev` (abre o site em http://localhost:5173)
-3. Para gerar a versão final: `npm run build` (a pasta `dist` é o site pronto).
+## Requisitos
+- Node.js 18 ou superior
+- npm
+
+## Rodar localmente
+```bash
+npm install
+npm run dev
+```
+
+## Gerar build de produção
+```bash
+npm run build
+npm run preview
+```
+
+A saída de produção é gerada na pasta `dist/`.
 
 ## Estrutura
-- `src/App.jsx`: ordem das seções na página.
-- `src/components/`: uma seção por arquivo (Hero, Marcas, Projetos, Sobre, Processo, Servicos, Contato, Rodape, Dock).
-- `src/hooks/`: comportamentos (vitrine de projetos, barra do processo, barra flutuante, cursor, revelação, rolagem suave).
-- `src/context/Idioma.jsx`: idioma escolhido pelo visitante.
-- `src/styles/global.css`: estilos do site.
-- `public/media/`: imagens (logos, fotos, mockups).
-- `public/*.html`: páginas dos cases (ainda estáticas).
+- `index.html`: documento HTML de entrada; carrega `/src/main.jsx`.
+- `src/main.jsx`: inicialização do React.
+- `src/App.jsx`: composição das seções da página.
+- `src/components/`: seções e componentes visuais.
+- `src/hooks/`: comportamentos de interação, rolagem e animações.
+- `src/context/Idioma.jsx`: estado do idioma selecionado.
+- `src/styles/global.css`: estilos globais.
+- `public/media/` e `public/images/`: imagens e recursos públicos.
+- `public/*.html`: páginas estáticas dos projetos/cases.
+- `vercel.json`: configuração explícita de build e diretório de saída na Vercel.
 
-## Pendências
-- Traduções: só a capa está traduzida no React. As outras seções voltam a ficar em português até serem convertidas para o mesmo sistema de idiomas.
-- Páginas dos cases: continuam como HTML estático na pasta `public`.
-- Teste visual: confirmar vitrine, rolagem suave e cursor em navegador antes de publicar.
+## Publicar na Vercel
+1. Importe o repositório no Vercel.
+2. Em **Settings → Build and Deployment**, deixe **Root Directory** como `.` (raiz do repositório; não selecione `src`).
+3. Build Command: `npm run build`.
+4. Output Directory: `dist`.
+5. Install Command: `npm install`.
+6. Faça um novo deploy usando o commit que contém `src/main.jsx`, `src/App.jsx` e `vercel.json`.
 
-## Publicação
-Suba esta pasta para um repositório no GitHub e importe no Vercel. O Vercel reconhece o projeto Vite e gera o site automaticamente.
+> Importante: o erro `Rollup failed to resolve import "/src/main.jsx" from "/vercel/path0/index.html"` ocorre quando o arquivo não está presente no commit implantado ou quando o diretório raiz configurado no Vercel não corresponde à raiz deste projeto. Nesta versão, `index.html` aponta para `src/main.jsx`, e esse arquivo está incluído no projeto.
+
+## Observações
+As traduções completas de todas as seções e o teste visual em navegadores reais permanecem como melhorias futuras; não foram alterados nesta correção para preservar o comportamento e o conteúdo existentes.
