@@ -140,7 +140,8 @@ export default function Hero() {
             ))}
           </h1>
         </div>
-
+      </div>
+      <div className="hero-frame">
         <aside className="hero-side">
           <p className="hero-note">{t.note}</p>
           <p className="hero-link">{t.link}</p>
