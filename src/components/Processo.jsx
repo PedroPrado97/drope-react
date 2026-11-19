@@ -74,8 +74,13 @@ export default function Processo() {
 
       <div className="proc-stage">
         <header className="proc-head">
-          <p className="proc-kicker">Do questionamento à forma.</p>
-          <h2 className="proc-title">Cinco movimentos.<br />Uma construção com intenção.</h2>
+          <h2 className="proc-title">
+            <span className="proc-num5">5</span>
+            <span className="proc-txt">
+              <span>movimentos.</span>
+              <span>Uma construção com intenção.</span>
+            </span>
+          </h2>
         </header>
 
         <nav className="proc-nav" aria-label="Etapas do processo">
@@ -112,9 +117,11 @@ export default function Processo() {
           ))}
 
           <div className="proc-geo" aria-hidden="true">
-            <span className="geo-c c1" />
-            <span className="geo-c c2" />
-            <span className="geo-line" />
+            <div className="proc-spin">
+              <svg className="proc-mark" viewBox="0 0 100 100">
+                <path d="M48.73 0.00 L38.99 5.62 L48.05 21.18 L23.93 7.31 L18.31 17.07 L33.93 26.04 L6.09 26.07 L6.09 37.31 L24.11 37.28 L0.00 51.24 L5.62 60.98 L21.18 51.92 L7.31 76.04 L17.07 81.66 L26.04 66.01 L26.07 93.88 L37.31 93.88 L37.28 75.86 L51.24 99.97 L60.98 94.35 L51.92 78.79 L76.04 92.66 L81.66 82.90 L66.04 73.93 L93.88 73.91 L93.88 62.66 L75.86 62.69 L99.97 48.73 L94.35 38.99 L78.79 48.05 L92.66 23.93 L82.90 18.31 L73.93 33.93 L73.91 6.09 L62.66 6.09 L62.69 24.11 Z" />
+              </svg>
+            </div>
           </div>
 
           <div className="proc-final" aria-hidden={ativo !== ETAPAS.length - 1}>
