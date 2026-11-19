@@ -1,6 +1,8 @@
+import { useIdioma } from '../context/Idioma.jsx'
 export default function Servicos() {
+  const { t } = useIdioma()
   return (
-    <section className={"sv"} id={"servicos"} aria-label={"Servi\u00e7os"}>
+    <section className={"sv"} id={"servicos"} aria-label={t("Servi\u00e7os")}>
       <p className={"kicker reveal"}>
         <span>
           {"(05)"}
@@ -13,10 +15,10 @@ export default function Servicos() {
             {"01"}
           </span>
           <h3 className={"sv-name"}>
-            {"Estrat\u00e9gia de marca"}
+            {t("Estrat\u00e9gia de marca")}
           </h3>
           <p className={"sv-desc"}>
-            {"Posicionamento, arquitetura e dire\u00e7\u00e3o de comunica\u00e7\u00e3o."}
+            {t("Posicionamento, arquitetura e dire\u00e7\u00e3o de comunica\u00e7\u00e3o.")}
           </p>
         </li>
         <li className={"sv-row reveal"}>
@@ -24,10 +26,10 @@ export default function Servicos() {
             {"02"}
           </span>
           <h3 className={"sv-name"}>
-            {"Branding"}
+            {t("Branding")}
           </h3>
           <p className={"sv-desc"}>
-            {"Naming, narrativa e sistema de marca completo."}
+            {t("Naming, narrativa e sistema de marca completo.")}
           </p>
         </li>
         <li className={"sv-row reveal"}>
@@ -35,10 +37,10 @@ export default function Servicos() {
             {"03"}
           </span>
           <h3 className={"sv-name"}>
-            {"Identidade visual"}
+            {t("Identidade visual")}
           </h3>
           <p className={"sv-desc"}>
-            {"Logotipo, tipografia, cor, grafismos e aplica\u00e7\u00f5es."}
+            {t("Logotipo, tipografia, cor, grafismos e aplica\u00e7\u00f5es.")}
           </p>
         </li>
       </ul>

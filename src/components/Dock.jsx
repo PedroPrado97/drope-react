@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useIdioma } from '../context/Idioma.jsx'
 import useDock from '../hooks/useDock.js'
 export default function Dock() {
+  const { t } = useIdioma()
   const ref = useRef(null)
   const { idioma, setIdioma } = useIdioma()
   useDock(ref)
@@ -51,21 +52,21 @@ export default function Dock() {
       </div>
       <div className={"dock-links"}>
         <a href={"#inicio"} data-i18n={"d-inicio"}>
-          {"In\u00edcio"}
+          {t("In\u00edcio")}
         </a>
         <a href={"#projetos"} data-i18n={"d-projetos"}>
-          {"Projetos"}
+          {t("Projetos")}
         </a>
         <a href={"#processo"} data-i18n={"d-processo"}>
-          {"Processo"}
+          {t("Processo")}
         </a>
         <a href={"#sobre"} data-i18n={"d-dif"}>
-          {"Diferenciais"}
+          {t("Diferenciais")}
         </a>
       </div>
       <a className={"dock-cta"} href={"#contato"}>
         <span data-i18n={"d-cta"}>
-          {"Solicitar or\u00e7amento"}
+          {t("Solicitar or\u00e7amento")}
         </span>
         <span className={"arr"} aria-hidden={"true"}>
           {"\u2197"}

@@ -1,8 +1,10 @@
+import { useIdioma } from '../context/Idioma.jsx'
 export default function Marcas() {
+  const { t } = useIdioma()
   return (
     <section className={"marcas"} aria-label={"Marcas que ajudamos a tornar \u00fanicas"}>
       <p data-i18n={"marcas-t"} className={"marcas-titulo"}>
-        {"Marcas que ajudamos a tornar \u00fanicas."}
+        {t("Marcas que ajudamos a tornar \u00fanicas.")}
       </p>
       <div className={"mq"} aria-hidden={"false"}>
         <div className={"mq-track"}>

@@ -1,17 +1,19 @@
+import { useIdioma } from '../context/Idioma.jsx'
 import { useRef } from 'react'
 import useVitrine from '../hooks/useVitrine.js'
 export default function Projetos() {
+  const { t } = useIdioma()
   const ref = useRef(null)
   useVitrine(ref)
   return (
-    <section ref={ref} className={"vt"} id={"projetos"} aria-label={"Projetos"}>
+    <section ref={ref} className={"vt"} id={"projetos"} aria-label={t("Projetos")}>
       <div className={"vt-stage"}>
         <div className={"vt-top"}>
           <span className={"vt-tag"}>
-            {"Projetos"}
+            {t("Projetos")}
           </span>
           <p className={"vt-head"}>
-            {"Marcas que j\u00e1 ajudamos a tornar \u00fanicas."}
+            {t("Marcas que j\u00e1 ajudamos a tornar \u00fanicas.")}
           </p>
         </div>
         <article className={"vt-slide"} data-i={"0"} style={{ "--i": "0" }}>
@@ -21,14 +23,14 @@ export default function Projetos() {
           <div className={"vt-shade"} aria-hidden={"true"}></div>
           <div className={"vt-copy"}>
             <p className={"vt-type"}>
-              {"Moda praia \u00b7 Identidade visual"}
+              {t("Moda praia \u00b7 Identidade visual")}
             </p>
             <h3 className={"vt-name"}>
               {"BRISA"}
             </h3>
             <a className={"vt-btn"} href={"brisa.html"} aria-label={"Ver case: Brisa Beachwear & Fitwear"}>
               <span>
-                {"Ver case"}
+                {t("Ver case")}
               </span>
               <span className={"vt-arr"} aria-hidden={"true"}>
                 {"\u2197"}
@@ -43,14 +45,14 @@ export default function Projetos() {
           <div className={"vt-shade"} aria-hidden={"true"}></div>
           <div className={"vt-copy"}>
             <p className={"vt-type"}>
-              {"Confeitaria artesanal \u00b7 Identidade visual"}
+              {t("Confeitaria artesanal \u00b7 Identidade visual")}
             </p>
             <h3 className={"vt-name"}>
               {"ATELI\u00ca ALENCAR"}
             </h3>
             <a className={"vt-btn"} href={"atelie-alencar.html"} aria-label={"Ver case: Ateli\u00ea Alencar"}>
               <span>
-                {"Ver case"}
+                {t("Ver case")}
               </span>
               <span className={"vt-arr"} aria-hidden={"true"}>
                 {"\u2197"}
@@ -65,14 +67,14 @@ export default function Projetos() {
           <div className={"vt-shade"} aria-hidden={"true"}></div>
           <div className={"vt-copy"}>
             <p className={"vt-type"}>
-              {"Turismo de aventura \u00b7 Identidade visual"}
+              {t("Turismo de aventura \u00b7 Identidade visual")}
             </p>
             <h3 className={"vt-name"}>
               {"RUMO LIVRE 360\u00b0"}
             </h3>
             <a className={"vt-btn"} href={"rumo.html"} aria-label={"Ver case: Rumo Livre 360\u00b0"}>
               <span>
-                {"Ver case"}
+                {t("Ver case")}
               </span>
               <span className={"vt-arr"} aria-hidden={"true"}>
                 {"\u2197"}
@@ -87,14 +89,14 @@ export default function Projetos() {
           <div className={"vt-shade"} aria-hidden={"true"}></div>
           <div className={"vt-copy"}>
             <p className={"vt-type"}>
-              {"Alimenta\u00e7\u00e3o \u00b7 Identidade visual"}
+              {t("Alimenta\u00e7\u00e3o \u00b7 Identidade visual")}
             </p>
             <h3 className={"vt-name"}>
               {"RANCHO PARDO"}
             </h3>
             <a className={"vt-btn"} href={"rancho.html"} aria-label={"Ver case: Rancho Pardo"}>
               <span>
-                {"Ver case"}
+                {t("Ver case")}
               </span>
               <span className={"vt-arr"} aria-hidden={"true"}>
                 {"\u2197"}
@@ -109,14 +111,14 @@ export default function Projetos() {
           <div className={"vt-shade"} aria-hidden={"true"}></div>
           <div className={"vt-copy"}>
             <p className={"vt-type"}>
-              {"Loja \u00b7 Identidade visual"}
+              {t("Loja \u00b7 Identidade visual")}
             </p>
             <h3 className={"vt-name"}>
               {"TIGER STORE"}
             </h3>
             <a className={"vt-btn"} href={"tiger.html"} aria-label={"Ver case: Tiger Store"}>
               <span>
-                {"Ver case"}
+                {t("Ver case")}
               </span>
               <span className={"vt-arr"} aria-hidden={"true"}>
                 {"\u2197"}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useIdioma } from '../context/Idioma.jsx'
 
 const ETAPAS = [
   {
@@ -29,6 +30,7 @@ const ETAPAS = [
 ]
 
 export default function Processo() {
+  const { t } = useIdioma()
   const ref = useRef(null)
   const [ativo, setAtivo] = useState(0)
 
@@ -70,15 +72,13 @@ export default function Processo() {
 
   return (
     <section className="proc" id="processo" ref={ref} aria-label="Processo">
-      <div className="proc-fade" aria-hidden="true" />
-
       <div className="proc-stage">
         <header className="proc-head">
           <h2 className="proc-title">
             <span className="proc-num5">5</span>
             <span className="proc-txt">
-              <span>movimentos.</span>
-              <span>Uma construção com intenção.</span>
+              <span>{t('movimentos.')}</span>
+              <span>{t('Uma construção com intenção.')}</span>
             </span>
           </h2>
         </header>
@@ -94,7 +94,7 @@ export default function Processo() {
               aria-current={ativo === i ? 'step' : undefined}
             >
               <span className="proc-num">{e.n}</span>
-              <span className="proc-label">{e.verbo}</span>
+              <span className="proc-label">{t(e.verbo)}</span>
             </button>
           ))}
         </nav>
@@ -108,10 +108,10 @@ export default function Processo() {
               aria-hidden={ativo !== i}
             >
               <span className="proc-big">{e.n}</span>
-              <h3 className="proc-verb">{e.verbo}</h3>
-              <p className="proc-prop">{e.proposito}</p>
+              <h3 className="proc-verb">{t(e.verbo)}</h3>
+              <p className="proc-prop">{t(e.proposito)}</p>
               <ul className="proc-busca">
-                {e.buscamos.map((b) => <li key={b}>{b}</li>)}
+                {e.buscamos.map((b) => <li key={b}>{t(b)}</li>)}
               </ul>
             </article>
           ))}
@@ -126,7 +126,7 @@ export default function Processo() {
 
           <div className="proc-final" aria-hidden={ativo !== ETAPAS.length - 1}>
             <img src="/favicon.png" alt="" />
-            <p>A identidade é consequência do processo.</p>
+            <p>{t('A identidade é consequência do processo.')}</p>
           </div>
         </div>
       </div>

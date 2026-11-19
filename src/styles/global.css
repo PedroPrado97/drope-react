@@ -993,3 +993,19 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 @keyframes procSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){ .proc-spin{animation:none} }
 @media (max-width:900px){ .proc-geo{display:none} }
+
+/* Processo: a etapa começa já no topo da tela, sem espaço vazio antes do título */
+.proc-stage{padding-top:clamp(56px,8vh,90px)}
+.proc-head{margin-bottom:0}
+.proc-nav{align-self:center}
+.proc-panels{align-self:stretch}
+
+/* Processo: texto em caixa alta, ocupando a altura do numeral 5 */
+.proc-title{--n:clamp(110px,15vw,220px);align-items:stretch}
+.proc-num5{font-size:var(--n);align-self:center}
+.proc-txt{height:calc(var(--n) * .8);justify-content:space-between;font-size:min(calc(var(--n) * .4), 3.4vw);line-height:1;text-transform:uppercase;letter-spacing:-.01em}
+.proc-txt span{white-space:nowrap}
+
+/* Símbolo em contorno mais grosso */
+.proc-mark path{stroke-width:1.6;vector-effect:none}
+.proc-geo{width:min(44vw,560px)}

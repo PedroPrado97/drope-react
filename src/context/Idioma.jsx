@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { TRADUCOES } from '../i18n/traducoes.js'
 
 const IdiomaContext = createContext(null)
 const SUPORTADOS = ['pt-BR', 'en', 'es']
@@ -19,8 +20,11 @@ export function IdiomaProvider({ children }) {
     try { localStorage.setItem('drope-lang', idioma) } catch { /* sem armazenamento */ }
   }, [idioma])
 
+  /* Traduz um texto da página (se não houver tradução, mantém o original) */
+  const t = (txt) => (idioma === 'pt-BR' ? txt : (TRADUCOES[idioma] && TRADUCOES[idioma][txt]) || txt)
+
   return (
-    <IdiomaContext.Provider value={{ idioma, setIdioma }}>
+    <IdiomaContext.Provider value={{ idioma, setIdioma, t }}>
       {children}
     </IdiomaContext.Provider>
   )
