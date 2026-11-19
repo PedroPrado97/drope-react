@@ -807,9 +807,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
 .vt-top{position:absolute;top:clamp(88px,12vh,120px);left:clamp(24px,4vw,64px);z-index:20;max-width:560px;pointer-events:none}
 .vt-top .kicker{margin-bottom:12px}
 .vt-head{font-size:clamp(18px,2vw,26px);font-weight:600;color:#f3f7f2}
-.vt-slide{position:absolute;inset:0;overflow:hidden;background:#050805;transform:translate3d(0,calc(max(0, var(--i) - var(--q, 0)) * 100%),0);will-change:transform;transition:none}
+.vt-slide{position:absolute;inset:0;overflow:hidden;background:#050805;transform:translate3d(calc(max(0, var(--i) - var(--q, 0)) * 100%),0,0);will-change:transform;transition:none}
 .vt-slide:nth-child(n){z-index:auto}
-.vt-media{position:absolute;inset:0;transform:translate3d(0,calc(max(0, var(--i) - var(--q, 0)) * -8%),0)}
+.vt-media{position:absolute;inset:0;transform:translate3d(calc(max(0, var(--i) - var(--q, 0)) * -8%),0,0)}
 .vt-media img{width:100%;height:100%;object-fit:contain;display:block}
 .vt-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.25) 45%,rgba(0,0,0,.1) 100%)}
 .vt-copy{position:absolute;left:clamp(24px,4vw,64px);bottom:clamp(64px,12vh,120px);z-index:5;max-width:min(80vw,1100px)}
@@ -902,3 +902,22 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 
 /* A grade da capa usa a largura total da tela (sem o limite de 1200px da classe wrap), para o alinhamento com o logotipo */
 .hero-ed .hero-grid{max-width:none;width:100%;margin:0}
+
+/* ===== Ajustes para celular: botões da capa centralizados ===== */
+@media (max-width:900px){
+  .hero-ed .hero-side{position:relative;left:auto;right:auto;bottom:auto;width:100%;max-width:none;margin:28px auto 0;text-align:center;justify-self:center;align-items:center;display:flex;flex-direction:column;align-items:center}
+  .hero-ed .hero-side .hero-note,.hero-ed .hero-side .hero-link{text-align:center}
+  .hero-ed .hero-side .actions{justify-content:center;width:100%}
+}
+/* ===== Vitrine no celular: 5 quadros horizontais, um abaixo do outro, sem deslizar ===== */
+@media (max-width:900px){
+  .vt{height:auto !important}
+  .vt-stage{position:static;height:auto !important;overflow:visible;padding:0 14px}
+  .vt-top{position:static;margin:0 0 24px;padding-top:88px;max-width:none}
+  .vt-slide{position:relative;inset:auto;transform:none !important;width:100%;aspect-ratio:16/9;height:auto;margin:0 0 22px;border-radius:24px;overflow:hidden}
+  .vt-media{position:absolute;inset:0;transform:none !important}
+  .vt-media img{width:100%;height:100%;object-fit:cover}
+  .vt-copy{left:18px;right:18px;bottom:22px;max-width:none}
+  .vt-name{font-size:clamp(24px,7vw,34px)}
+  .vt-count,.vt-rail{display:none}
+}
