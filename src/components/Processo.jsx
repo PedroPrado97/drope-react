@@ -29,6 +29,9 @@ const ETAPAS = [
   },
 ]
 
+const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+const clamp = (v) => Math.min(1, Math.max(0, v))
+
 export default function Processo() {
   const { t } = useIdioma()
   const ref = useRef(null)
@@ -37,47 +40,59 @@ export default function Processo() {
   useEffect(() => {
     const sec = ref.current
     if (!sec) return
-    const atualizar = () => {
-      const topo = sec.getBoundingClientRect().top + window.pageYOffset
-      const tot = Math.max(sec.offsetHeight - window.innerHeight, 1)
-      const p = Math.min(1, Math.max(0, (window.pageYOffset - topo) / tot))
-      sec.style.setProperty('--p', p.toFixed(4))
-      /* Os tópicos só mudam com a tela travada (seção inteira visível) */
-      const nEtapas = ETAPAS.length
-      const x = p * (nEtapas - 1)
-      const k = Math.min(nEtapas - 2, Math.floor(x))
-      const f = x - k
-      const qe = k + Math.min(1, Math.max(0, (f - 0.7) / 0.3))
-      sec.style.setProperty('--q', qe.toFixed(4))
-      const r = sec.getBoundingClientRect()
-      let idx
-      if (r.top > 0) idx = 0
-      else if (r.bottom < window.innerHeight) idx = ETAPAS.length - 1
-      else idx = Math.round(qe)
-      setAtivo(idx)
-      /* Celular: os textos somem em fade ao passar por baixo do título */
-      const head = sec.querySelector('.proc-head')
+    const painel = sec.querySelectorAll('.proc-panel')
+    let alvo = 0          /* posição de destino (0 a 4), vinda da rolagem */
+    let atual = 0         /* posição exibida, suavizada a cada quadro */
+    let raf = null
+    let idxAnterior = -1
+
+    const desenhar = (q) => {
       const mobile = window.matchMedia('(max-width: 900px)').matches
-      const painel = sec.querySelectorAll('.proc-panel')
+      const head = sec.querySelector('.proc-head')
       painel.forEach((el, i) => {
         if (mobile) {
           el.style.transform = ''
+          el.style.filter = ''
           const limite = head ? head.getBoundingClientRect().bottom : 0
           const d = el.getBoundingClientRect().top - limite
-          el.style.opacity = Math.max(0, Math.min(1, d / 160)).toFixed(3)
+          el.style.opacity = clamp(d / 160).toFixed(3)
           return
         }
-        /* Desktop: a etapa fica parada e inteira enquanto está em destaque;
-           só sai quando a próxima já ocupou a maior parte da tela (zona morta de 30%) */
-        const q = qe
+        /* zona de leitura: a etapa fica inteira em destaque; a transição ocorre no trecho final */
         const dist = i - q
         const ad = Math.abs(dist)
-        const m = Math.min(1, Math.max(0, (ad - 0.3) / 0.7))
+        const m = easeInOut(clamp((ad - 0.25) / 0.75))
         const sinal = dist < 0 ? -1 : 1
-        el.style.transform = `translate3d(${(sinal * m * 90).toFixed(2)}px,0,0)`
+        el.style.transform = `translate3d(${(sinal * m * 70).toFixed(2)}px, ${(-m * 18).toFixed(2)}px, 0) scale(${(1 - m * 0.06).toFixed(4)})`
+        el.style.filter = `blur(${(m * 8).toFixed(2)}px)`
         el.style.opacity = (1 - m).toFixed(3)
       })
     }
+
+    const passo = () => {
+      atual += (alvo - atual) * 0.1
+      if (Math.abs(alvo - atual) < 0.0008) atual = alvo
+      desenhar(atual)
+      const idx = Math.round(atual)
+      if (idx !== idxAnterior) { idxAnterior = idx; setAtivo(idx) }
+      raf = atual !== alvo ? requestAnimationFrame(passo) : null
+    }
+    const animar = () => { if (!raf) raf = requestAnimationFrame(passo) }
+
+    const atualizar = () => {
+      const topo = sec.getBoundingClientRect().top + window.pageYOffset
+      const tot = Math.max(sec.offsetHeight - window.innerHeight, 1)
+      const p = clamp((window.pageYOffset - topo) / tot)
+      const n = ETAPAS.length
+      const x = p * (n - 1)
+      const k = Math.min(n - 2, Math.floor(x))
+      const f = x - k
+      /* cada etapa fica parada até 70% do seu trecho e só então troca */
+      alvo = k + clamp((f - 0.7) / 0.3)
+      sec.style.setProperty('--p', p.toFixed(4))
+      animar()
+    }
+
     let ticking = false
     const onScroll = () => {
       if (!ticking) {
@@ -91,6 +106,7 @@ export default function Processo() {
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', atualizar)
+      if (raf) cancelAnimationFrame(raf)
     }
   }, [])
 
@@ -137,7 +153,6 @@ export default function Processo() {
             <article
               key={e.n}
               className={'proc-panel' + (ativo === i ? ' on' : '')}
-              style={{ '--i': i }}
               aria-hidden={ativo !== i}
             >
               <span className="proc-big">{e.n}</span>
