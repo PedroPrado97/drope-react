@@ -1095,3 +1095,9 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 }
 
 .val{padding:0;min-height:0}
+
+/* Celular: textos e botões de todos os projetos sempre visíveis (a opacidade por rolagem vale só no desktop) */
+@media (max-width:900px){
+  .vt-copy{opacity:1 !important}
+  .vt-slide{opacity:1 !important;visibility:visible !important}
+}

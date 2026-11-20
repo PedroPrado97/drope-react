@@ -47,11 +47,24 @@ export default function Processo() {
       /* Celular: os textos somem em fade ao passar por baixo do título */
       const head = sec.querySelector('.proc-head')
       const mobile = window.matchMedia('(max-width: 900px)').matches
-      sec.querySelectorAll('.proc-panel').forEach((el) => {
-        if (!mobile) { el.style.opacity = ''; return }
-        const limite = head ? head.getBoundingClientRect().bottom : 0
-        const d = el.getBoundingClientRect().top - limite
-        el.style.opacity = Math.max(0, Math.min(1, d / 160)).toFixed(3)
+      const painel = sec.querySelectorAll('.proc-panel')
+      painel.forEach((el, i) => {
+        if (mobile) {
+          el.style.transform = ''
+          const limite = head ? head.getBoundingClientRect().bottom : 0
+          const d = el.getBoundingClientRect().top - limite
+          el.style.opacity = Math.max(0, Math.min(1, d / 160)).toFixed(3)
+          return
+        }
+        /* Desktop: a etapa fica parada e inteira enquanto está em destaque;
+           só sai quando a próxima já ocupou a maior parte da tela (zona morta de 30%) */
+        const q = p * (ETAPAS.length - 1)
+        const dist = i - q
+        const ad = Math.abs(dist)
+        const m = Math.min(1, Math.max(0, (ad - 0.3) / 0.7))
+        const sinal = dist < 0 ? -1 : 1
+        el.style.transform = `translate3d(${(sinal * m * 90).toFixed(2)}px,0,0)`
+        el.style.opacity = (1 - m).toFixed(3)
       })
     }
     let ticking = false
