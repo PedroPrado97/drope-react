@@ -44,6 +44,15 @@ export default function Processo() {
       sec.style.setProperty('--p', p.toFixed(4))
       sec.style.setProperty('--q', (p * (ETAPAS.length - 1)).toFixed(4))
       setAtivo(Math.round(p * (ETAPAS.length - 1)))
+      /* Celular: os textos somem em fade ao passar por baixo do título */
+      const head = sec.querySelector('.proc-head')
+      const mobile = window.matchMedia('(max-width: 900px)').matches
+      sec.querySelectorAll('.proc-panel').forEach((el) => {
+        if (!mobile) { el.style.opacity = ''; return }
+        const limite = head ? head.getBoundingClientRect().bottom : 0
+        const d = el.getBoundingClientRect().top - limite
+        el.style.opacity = Math.max(0, Math.min(1, d / 160)).toFixed(3)
+      })
     }
     let ticking = false
     const onScroll = () => {

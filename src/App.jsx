@@ -7,6 +7,7 @@ import Marcas from './components/Marcas.jsx'
 import Projetos from './components/Projetos.jsx'
 import Sobre from './components/Sobre.jsx'
 import Processo from './components/Processo.jsx'
+import Valores from './components/Valores.jsx'
 import Servicos from './components/Servicos.jsx'
 import Contato from './components/Contato.jsx'
 import Rodape from './components/Rodape.jsx'
@@ -23,6 +24,7 @@ function Pagina() {
         <Marcas />
         <Projetos />
         <Processo />
+        <Valores />
         <Sobre />
         <Servicos />
         <Contato />

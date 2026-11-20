@@ -1,6 +1,15 @@
 /* Traduções do site: a chave é o texto em português, como aparece na página */
 export const TRADUCOES = {
   en: {
+    "Nossos valores": "Our values",
+    "CURIOSIDADE.": "CURIOSITY.",
+    "INTENÇÃO.": "INTENTION.",
+    "CORAGEM.": "COURAGE.",
+    "Não nos contentamos com a primeira resposta. Buscamos entender o que existe por trás de cada negócio, pessoas e contextos. Boas marcas começam com boas perguntas.": "We are not satisfied with the first answer. We seek to understand what lies behind every business, its people and its contexts. Good brands start with good questions.",
+    "Nada deveria existir apenas porque ficou bonito.": "Nothing should exist just because it looks good.",
+    "Cada decisão precisa ter uma razão. Forma e significado devem caminhar juntos.": "Every decision needs a reason. Form and meaning must walk together.",
+    "O caminho mais seguro nem sempre é o mais interessante.": "The safest path is not always the most interesting one.",
+    "Defendemos diferenças, escolhas autorais e marcas que não precisam se parecer com todas as outras.": "We defend differences, authorial choices and brands that do not need to look like all the others.",
     'Contato': 'Contact',
     'Vamos construir algo': "Let's build something",
     'diferente.': 'different.',
@@ -64,6 +73,15 @@ export const TRADUCOES = {
     'observadora': 'observant',
   },
   es: {
+    "Nossos valores": "Nuestros valores",
+    "CURIOSIDADE.": "CURIOSIDAD.",
+    "INTENÇÃO.": "INTENCIÓN.",
+    "CORAGEM.": "VALENTÍA.",
+    "Não nos contentamos com a primeira resposta. Buscamos entender o que existe por trás de cada negócio, pessoas e contextos. Boas marcas começam com boas perguntas.": "No nos conformamos con la primera respuesta. Buscamos entender lo que existe detrás de cada negocio, sus personas y sus contextos. Las buenas marcas empiezan con buenas preguntas.",
+    "Nada deveria existir apenas porque ficou bonito.": "Nada debería existir solo porque se ve bonito.",
+    "Cada decisão precisa ter uma razão. Forma e significado devem caminhar juntos.": "Cada decisión necesita una razón. Forma y significado deben caminar juntos.",
+    "O caminho mais seguro nem sempre é o mais interessante.": "El camino más seguro no siempre es el más interesante.",
+    "Defendemos diferenças, escolhas autorais e marcas que não precisam se parecer com todas as outras.": "Defendemos las diferencias, las elecciones autorales y las marcas que no necesitan parecerse a todas las demás.",
     'Contato': 'Contacto',
     'Vamos construir algo': 'Vamos a construir algo',
     'diferente.': 'diferente.',
