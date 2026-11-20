@@ -66,7 +66,7 @@ export default function Valores() {
         <div className="val-aurora" aria-hidden="true"><span /><span /><span /></div>
 
         <header className="val-top">
-          <p className="val-kicker">{t('Nossos valores')}</p>
+          <h2 className="val-titulo-sec">{t('Nossos valores')}</h2>
           <span className="val-count">{String(seg + 1).padStart(2, '0')} / 03</span>
         </header>
 
@@ -86,7 +86,7 @@ export default function Valores() {
         </div>
 
         <div className="val-texto" style={{ opacity: textoVisivel }}>
-          <h2 className="val-titulo-sec">{t(v.titulo)}</h2>
+          <h3 className="val-titulo-sec">{t(v.titulo)}</h3>
           {v.linhas.map((l) => <p key={l}>{t(l)}</p>)}
           <p className="val-marca">{t(v.marca)}</p>
         </div>

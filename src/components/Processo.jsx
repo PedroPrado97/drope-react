@@ -42,13 +42,18 @@ export default function Processo() {
       const tot = Math.max(sec.offsetHeight - window.innerHeight, 1)
       const p = Math.min(1, Math.max(0, (window.pageYOffset - topo) / tot))
       sec.style.setProperty('--p', p.toFixed(4))
-      sec.style.setProperty('--q', (p * (ETAPAS.length - 1)).toFixed(4))
       /* Os tópicos só mudam com a tela travada (seção inteira visível) */
+      const nEtapas = ETAPAS.length
+      const x = p * (nEtapas - 1)
+      const k = Math.min(nEtapas - 2, Math.floor(x))
+      const f = x - k
+      const qe = k + Math.min(1, Math.max(0, (f - 0.7) / 0.3))
+      sec.style.setProperty('--q', qe.toFixed(4))
       const r = sec.getBoundingClientRect()
       let idx
       if (r.top > 0) idx = 0
       else if (r.bottom < window.innerHeight) idx = ETAPAS.length - 1
-      else idx = Math.round(p * (ETAPAS.length - 1))
+      else idx = Math.round(qe)
       setAtivo(idx)
       /* Celular: os textos somem em fade ao passar por baixo do título */
       const head = sec.querySelector('.proc-head')
@@ -64,7 +69,7 @@ export default function Processo() {
         }
         /* Desktop: a etapa fica parada e inteira enquanto está em destaque;
            só sai quando a próxima já ocupou a maior parte da tela (zona morta de 30%) */
-        const q = p * (ETAPAS.length - 1)
+        const q = qe
         const dist = i - q
         const ad = Math.abs(dist)
         const m = Math.min(1, Math.max(0, (ad - 0.3) / 0.7))

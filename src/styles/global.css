@@ -1173,3 +1173,15 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
   .val-top{position:relative;top:auto;left:auto;right:auto}
 }
 @media (prefers-reduced-motion:reduce){ .val-aurora span{animation:none} }
+
+/* Processo: a seção tem 5 telas de rolagem; a tela trava e cada etapa só troca depois de ser lida */
+.proc{height:500vh;background:linear-gradient(180deg,#070d0b 0,#ffffff 32vh,#ffffff calc(100% - 32vh),#070d0b 100%)}
+@media (max-width:900px){ .proc{height:auto} }
+
+/* Valores: título padrão, sem fundo, com a cor do valor */
+.val .val-texto .val-titulo-sec{color:inherit !important;background:transparent !important;font-size:var(--titulo) !important;text-transform:none !important;margin-top:0}
+.val .val-stage .val-texto{padding-top:clamp(96px,16vh,160px)}
+
+/* Valores: título "NOSSOS VALORES" no mesmo tamanho do título "5 MOVIMENTOS" */
+.val .val-top h2,.val .val-texto h3{font-size:var(--titulo) !important;font-weight:800 !important;text-transform:uppercase !important;letter-spacing:-.03em !important;line-height:1 !important;color:inherit !important;background:transparent !important;margin:0}
+.val .val-kicker{display:none}
