@@ -1101,3 +1101,28 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
   .vt-copy{opacity:1 !important}
   .vt-slide{opacity:1 !important;visibility:visible !important}
 }
+
+/* ===== Títulos padrão a partir de "5 movimentos" ===== */
+:root{--titulo:clamp(36px,5vw,84px)}
+.proc-txt,.val-titulo-sec,.sb-title,.cto-title{font-size:var(--titulo) !important;line-height:1 !important;font-weight:800 !important;letter-spacing:-.03em !important;background:none !important;color:#0a0a0a}
+.val-titulo-sec{margin:0 0 clamp(20px,4vh,40px);text-transform:none}
+
+/* ===== Valores: planos deitados, peças de xadrez, telas que sobem ===== */
+.val{position:relative;height:500vh;overflow:hidden;background:#ffffff;color:#0a0a0a}
+.val-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;padding:clamp(64px,10vh,100px) clamp(24px,5vw,90px) 0;display:flex;flex-direction:column}
+.val-cena{position:relative;flex:1;perspective:1400px}
+.val-bloco{position:absolute;left:50%;top:52%;width:min(46vw,640px);aspect-ratio:1/1;transform-style:preserve-3d;transform-origin:50% 50%;transform:translate(-50%,-50%);transition:none}
+.val-plano{position:absolute;inset:0;border-radius:18px;box-shadow:0 30px 60px rgba(0,0,0,.18);transform-style:preserve-3d}
+.val-plano.c0{}
+.val-peca{position:absolute;left:50%;bottom:50%;width:22%;height:auto;transform-origin:50% 100%;overflow:visible}
+.val-card{position:absolute;left:50%;top:50%;width:80vw;height:80vh;max-width:none;border-radius:24px;padding:clamp(28px,5vh,64px) clamp(28px,5vw,72px);display:flex;flex-direction:column;justify-content:center;gap:18px;box-shadow:0 30px 80px rgba(0,0,0,.25);transform-origin:50% 50%;will-change:transform,opacity}
+.val-card-n{font-size:clamp(14px,1.2vw,18px);font-weight:700;letter-spacing:.12em}
+.val-card-t{font-size:var(--titulo);font-weight:800;letter-spacing:-.03em;line-height:1}
+.val-card p{font-size:clamp(17px,1.6vw,26px);line-height:1.45;max-width:880px;margin:0}
+@media (max-width:900px){
+  .val{height:auto;overflow:visible}
+  .val-stage{position:relative;top:auto;height:auto;padding:72px 22px 80px;gap:28px}
+  .val-cena{perspective:none;min-height:0}
+  .val-bloco{display:none}
+  .val-card{position:relative;left:auto;top:auto;width:100%;height:auto;min-height:60vh;transform:none !important;opacity:1 !important;margin-bottom:24px}
+}

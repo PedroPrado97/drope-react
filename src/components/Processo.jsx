@@ -145,11 +145,6 @@ export default function Processo() {
               </svg>
             </div>
           </div>
-
-          <div className="proc-final" aria-hidden={ativo !== ETAPAS.length - 1}>
-            <img src="/favicon.png" alt="" />
-            <p>{t('A identidade é consequência do processo.')}</p>
-          </div>
         </div>
       </div>
     </section>
