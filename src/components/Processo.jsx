@@ -43,7 +43,13 @@ export default function Processo() {
       const p = Math.min(1, Math.max(0, (window.pageYOffset - topo) / tot))
       sec.style.setProperty('--p', p.toFixed(4))
       sec.style.setProperty('--q', (p * (ETAPAS.length - 1)).toFixed(4))
-      setAtivo(Math.round(p * (ETAPAS.length - 1)))
+      /* Os tópicos só mudam com a tela travada (seção inteira visível) */
+      const r = sec.getBoundingClientRect()
+      let idx
+      if (r.top > 0) idx = 0
+      else if (r.bottom < window.innerHeight) idx = ETAPAS.length - 1
+      else idx = Math.round(p * (ETAPAS.length - 1))
+      setAtivo(idx)
       /* Celular: os textos somem em fade ao passar por baixo do título */
       const head = sec.querySelector('.proc-head')
       const mobile = window.matchMedia('(max-width: 900px)').matches

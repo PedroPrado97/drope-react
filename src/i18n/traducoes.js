@@ -1,6 +1,9 @@
 /* Traduções do site: a chave é o texto em português, como aparece na página */
 export const TRADUCOES = {
   en: {
+    "Na sua marca, investigamos o negócio, o contexto e as pessoas antes de desenhar qualquer coisa. Cada pergunta abre um caminho, como um labirinto que só se revela ao ser percorrido.": "In your brand, we investigate the business, the context and the people before drawing anything. Each question opens a path, like a labyrinth that only reveals itself when walked.",
+    "Na sua marca, cada cor, forma e tipografia aponta para um mesmo norte. Nada entra apenas porque ficou bonito: tudo tem uma razão e um significado.": "In your brand, every color, shape and typeface points to the same north. Nothing enters just because it looks good: everything has a reason and a meaning.",
+    "Na sua marca, assumimos escolhas autorais que podem parecer arriscadas. Porque o caminho mais alto também é o que mais se destaca.": "In your brand, we commit to authorial choices that may look risky. Because the highest path is also the one that stands out the most.",
     "Nossos valores": "Our values",
     "CURIOSIDADE.": "CURIOSITY.",
     "INTENÇÃO.": "INTENTION.",
@@ -73,6 +76,9 @@ export const TRADUCOES = {
     'observadora': 'observant',
   },
   es: {
+    "Na sua marca, investigamos o negócio, o contexto e as pessoas antes de desenhar qualquer coisa. Cada pergunta abre um caminho, como um labirinto que só se revela ao ser percorrido.": "En tu marca, investigamos el negocio, el contexto y las personas antes de dibujar cualquier cosa. Cada pregunta abre un camino, como un laberinto que solo se revela al recorrerlo.",
+    "Na sua marca, cada cor, forma e tipografia aponta para um mesmo norte. Nada entra apenas porque ficou bonito: tudo tem uma razão e um significado.": "En tu marca, cada color, forma y tipografía apunta al mismo norte. Nada entra solo porque se ve bonito: todo tiene una razón y un significado.",
+    "Na sua marca, assumimos escolhas autorais que podem parecer arriscadas. Porque o caminho mais alto também é o que mais se destaca.": "En tu marca, asumimos decisiones autorales que pueden parecer arriesgadas. Porque el camino más alto también es el que más se destaca.",
     "Nossos valores": "Nuestros valores",
     "CURIOSIDADE.": "CURIOSIDAD.",
     "INTENÇÃO.": "INTENCIÓN.",
