@@ -1207,3 +1207,23 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
   .proc-head{background:#ffffff}
   .proc-panel > *{opacity:1 !important;transform:none !important;transition:none}
 }
+
+/* Marcas: nome de cada marca abaixo do ícone */
+.mq-item{display:flex;flex-direction:column;align-items:center;gap:14px;flex:0 0 auto}
+.mq-item .mq-tile{flex:0 0 auto}
+.mq-nome{font-size:clamp(11px,.95vw,14px);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(243,247,242,.85);white-space:nowrap;text-align:center;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+
+/* ===== RUPTURA: transição entre seções (overlay fixo, formas geométricas em verde) ===== */
+.rup{position:fixed;inset:0;z-index:60;visibility:hidden;pointer-events:none;overflow:hidden}
+.rup.on{visibility:visible;pointer-events:auto}
+.rup-stage{position:absolute;inset:0;overflow:hidden;clip-path:polygon(0% 0%,100% 0%,100% 100%,0% 100%)}
+.rup-white,.rup-f,.rup-accent{position:absolute;inset:0;will-change:transform}
+.rup-white{background:#ffffff}
+.rup-f1{background:#3B903F;clip-path:polygon(0 0,68% 0,52% 100%,0 100%)}
+.rup-f2{background:#215733;clip-path:polygon(44% 0,100% 0,100% 58%,30% 100%)}
+.rup-f5{background:#1b4a3c;clip-path:polygon(0 0,100% 0,100% 30%,0 46%)}
+.rup-f3{background:#12312C}
+.rup-accent{left:74%;right:auto;width:.5vw;min-width:4px;background:#6DC249;transform-origin:50% 0}
+@media (prefers-reduced-motion:reduce){ .rup{display:none} }
+/* Valores: título sem caixa preta atrás */
+.val .val-top,.val .val-top *{background:transparent !important;box-shadow:none !important}
