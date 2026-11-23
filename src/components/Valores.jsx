@@ -28,8 +28,19 @@ export default function Valores() {
   return (
     <section className="val" id="valores" ref={ref} aria-label="Valores">
       <div className="val-stage" style={{ background: v.fundo, color: v.texto }}>
+        <div className="val-fx" aria-hidden="true">
+          <span className="val-grid" />
+          <span className="val-scan" />
+        </div>
+
         <header className="val-top">
-          <h2 className="val-titulo-sec">{t('Nossos valores')}</h2>
+          <h2 className="val-titulo-sec val-titulo-futuro">
+            {t('Nossos valores').split(' ').map((palavra, i) => (
+              <span key={i} className="val-palavra" style={{ animationDelay: `${0.15 + i * 0.12}s` }}>
+                {palavra}
+              </span>
+            ))}
+          </h2>
         </header>
 
         <div className="val-cena" aria-hidden="true">

@@ -1285,3 +1285,16 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Título do valor abaixo do objeto 3D, sem sobrepor o título "Nossos valores" */
 .val-titulo-obj{top:82% !important}
 @media (max-width:900px){ .val-titulo-obj{top:78% !important;white-space:normal;text-align:center;max-width:90vw} }
+
+/* ===== Valores: abertura com linguagem futurista, no espírito da capa ===== */
+.val-fx{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.val-grid{position:absolute;left:-40%;right:-40%;bottom:-6%;height:62%;transform:perspective(520px) rotateX(62deg);transform-origin:50% 100%;background-image:linear-gradient(rgba(109,194,73,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(109,194,73,.2) 1px,transparent 1px);background-size:64px 64px;animation:valGrade 5s linear infinite;-webkit-mask-image:linear-gradient(to top,#000 0%,transparent 85%);mask-image:linear-gradient(to top,#000 0%,transparent 85%)}
+@keyframes valGrade{from{background-position:0 0,0 0}to{background-position:0 64px,0 0}}
+.val-scan{position:absolute;left:0;right:0;height:2px;top:0;background:linear-gradient(90deg,transparent,rgba(109,194,73,.9),transparent);box-shadow:0 0 24px 6px rgba(109,194,73,.35);opacity:.8;animation:valScan 6.5s cubic-bezier(.5,0,.5,1) infinite}
+@keyframes valScan{0%{transform:translateY(0);opacity:0}10%{opacity:.8}90%{opacity:.8}100%{transform:translateY(100svh);opacity:0}}
+.val-titulo-futuro{display:flex;flex-wrap:wrap;gap:0 .3em;position:relative;z-index:1}
+.val-palavra{display:inline-block;opacity:0;transform:translateY(40%);filter:blur(6px);animation:valPalavra 1s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes valPalavra{to{opacity:1;transform:none;filter:none}}
+.val-top{position:relative;z-index:2}
+@media (max-width:900px){ .val-grid{opacity:.6} }
+@media (prefers-reduced-motion:reduce){ .val-grid,.val-scan,.val-palavra{animation:none !important;opacity:1 !important;transform:none !important;filter:none !important} .val-scan{display:none} }
