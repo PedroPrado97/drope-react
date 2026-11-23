@@ -1264,3 +1264,10 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Cada camada da pilha é uma página com o seu item (ícone) e o nome do valor */
 .val-quadro-n{position:absolute;left:6%;top:6%;font-size:clamp(11px,.95vw,14px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f3f7f2;transition:opacity .5s ease;white-space:nowrap}
 .val-icone{width:62%}
+
+/* Ajustes: linhas brancas, pilha ocupando a página inteira no desktop, sem crossfade de títulos */
+.val-quadro,.val-quadro.on{border:1px solid #ffffff !important;box-shadow:none !important}
+.val-stack{width:min(94vw,1500px);height:min(92vh,980px);aspect-ratio:auto}
+.val-quadro-n{font-size:clamp(12px,1.1vw,16px);color:#ffffff}
+.val-count{display:none !important}
+.dp-base{background:#12312C}

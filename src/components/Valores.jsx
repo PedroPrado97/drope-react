@@ -73,7 +73,6 @@ export default function Valores() {
       <div className="val-stage" style={{ background: v.fundo, color: v.texto }}>
         <header className="val-top">
           <h2 className="val-titulo-sec">{t('Nossos valores')}</h2>
-          <span className="val-count">{String(seg + 1).padStart(2, '0')} / 03</span>
         </header>
 
         <div className="val-cena" aria-hidden="true">
@@ -92,8 +91,8 @@ export default function Valores() {
                     opacity: stand > 0.5 && !ativo ? 0.28 : 1,
                   }}
                 >
-                  <span className="val-quadro-n" style={{ opacity: lie + (ativo ? stand : 0) * 0 + (1 - lie) * (ativo ? 1 : 0.3) }}>
-                    {vi.n} · {t(vi.titulo)}
+                  <span className="val-quadro-n" style={{ opacity: lie + (1 - lie) * (ativo ? 1 : 0) }}>
+                    {t(vi.titulo)}
                   </span>
                   <img
                     className="val-icone"
