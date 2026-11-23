@@ -91,9 +91,6 @@ export default function Valores() {
                     opacity: stand > 0.5 && !ativo ? 0.28 : 1,
                   }}
                 >
-                  <span className="val-quadro-n" style={{ opacity: lie + (1 - lie) * (ativo ? 1 : 0) }}>
-                    {t(vi.titulo)}
-                  </span>
                   <img
                     className="val-icone"
                     src={vi.img}
@@ -105,6 +102,10 @@ export default function Valores() {
             })}
           </div>
         </div>
+
+        <h3 className="val-titulo-obj" style={{ opacity: lie > 0.02 ? 0 : iconeVisivel }} aria-hidden="true">
+          {t(v.titulo)}
+        </h3>
 
         <div className="val-texto" style={{ opacity: textoVisivel }}>
           {v.linhas.map((l) => <p key={l}>{t(l)}</p>)}

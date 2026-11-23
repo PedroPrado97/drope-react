@@ -1278,3 +1278,6 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 
 /* Nome de cada camada passa para o canto superior direito; títulos grandes centralizados das transições saem */
 .val-quadro-n{left:auto;right:6%;top:6%;text-align:right}
+
+/* Título grande centralizado sobre o objeto 3D do valor atual; aparece junto com o objeto */
+.val-titulo-obj{position:absolute;left:50%;top:16%;transform:translate(-50%,-50%);z-index:5;margin:0;font-size:var(--titulo);font-weight:800;letter-spacing:-.03em;line-height:1;text-transform:uppercase;color:#ffffff;white-space:nowrap;pointer-events:none;transition:opacity .2s linear}
