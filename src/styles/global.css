@@ -1281,3 +1281,7 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 
 /* Título grande centralizado sobre o objeto 3D do valor atual; aparece junto com o objeto */
 .val-titulo-obj{position:absolute;left:50%;top:16%;transform:translate(-50%,-50%);z-index:5;margin:0;font-size:var(--titulo);font-weight:800;letter-spacing:-.03em;line-height:1;text-transform:uppercase;color:#ffffff;white-space:nowrap;pointer-events:none;transition:opacity .2s linear}
+
+/* Título do valor abaixo do objeto 3D, sem sobrepor o título "Nossos valores" */
+.val-titulo-obj{top:82% !important}
+@media (max-width:900px){ .val-titulo-obj{top:78% !important;white-space:normal;text-align:center;max-width:90vw} }

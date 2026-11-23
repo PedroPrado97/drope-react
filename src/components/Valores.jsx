@@ -1,55 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import useScrollProgress from '../hooks/useScrollProgress.js'
+import { VALORES } from '../data/valores.js'
+import { clamp, lerp } from '../utils/numeros.js'
 import { useIdioma } from '../context/Idioma.jsx'
 
-const VALORES = [
-  {
-    n: '01', titulo: 'CURIOSIDADE.', img: '/media/valores/labirinto.webp', fundo: '#12312C', texto: '#f3f7f2',
-    linhas: ['Não nos contentamos com a primeira resposta. Buscamos entender o que existe por trás de cada negócio, pessoas e contextos. Boas marcas começam com boas perguntas.'],
-    marca: 'Na sua marca, investigamos o negócio, o contexto e as pessoas antes de desenhar qualquer coisa. Cada pergunta abre um caminho, como um labirinto que só se revela ao ser percorrido.',
-  },
-  {
-    n: '02', titulo: 'INTENÇÃO.', img: '/media/valores/bussola.webp', fundo: '#215733', texto: '#f3f7f2',
-    linhas: ['Nada deveria existir apenas porque ficou bonito.', 'Cada decisão precisa ter uma razão. Forma e significado devem caminhar juntos.'],
-    marca: 'Na sua marca, cada cor, forma e tipografia aponta para um mesmo norte. Nada entra apenas porque ficou bonito: tudo tem uma razão e um significado.',
-  },
-  {
-    n: '03', titulo: 'CORAGEM.', img: '/media/valores/montanha.webp', fundo: '#0a0a0a', texto: '#6DC249',
-    linhas: ['O caminho mais seguro nem sempre é o mais interessante.', 'Defendemos diferenças, escolhas autorais e marcas que não precisam se parecer com todas as outras.'],
-    marca: 'Na sua marca, assumimos escolhas autorais que podem parecer arriscadas. Porque o caminho mais alto também é o que mais se destaca.',
-  },
-]
-
-const clamp = (v) => Math.min(1, Math.max(0, v))
-const lerp = (a, b, t) => a + (b - a) * t
 
 export default function Valores() {
   const { t } = useIdioma()
-  const ref = useRef(null)
-  const [p, setP] = useState(0)
-
-  useEffect(() => {
-    const sec = ref.current
-    if (!sec) return
-    const atualizar = () => {
-      const topo = sec.getBoundingClientRect().top + window.pageYOffset
-      const tot = Math.max(sec.offsetHeight - window.innerHeight, 1)
-      setP(clamp((window.pageYOffset - topo) / tot))
-    }
-    let ticking = false
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true
-        requestAnimationFrame(() => { ticking = false; atualizar() })
-      }
-    }
-    atualizar()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', atualizar)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', atualizar)
-    }
-  }, [])
+  const [ref, p] = useScrollProgress()
 
   /* Linha do tempo:
      · início: pilha de quadros deitada em perspectiva isométrica (como na referência), base verde translúcida embaixo;
