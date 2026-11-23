@@ -107,7 +107,6 @@ export default function Valores() {
         </div>
 
         <div className="val-texto" style={{ opacity: textoVisivel }}>
-          <h3 className="val-titulo-sec">{t(v.titulo)}</h3>
           {v.linhas.map((l) => <p key={l}>{t(l)}</p>)}
           <p className="val-marca">{t(v.marca)}</p>
         </div>

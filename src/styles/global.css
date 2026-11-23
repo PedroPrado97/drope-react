@@ -1275,3 +1275,6 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Elementos 3D em tamanho proporcional à tela (antes ficavam grandes demais com a pilha em tela cheia) */
 .val-icone{width:min(26vw,380px) !important;max-height:52vh;object-fit:contain}
 @media (max-width:900px){ .val-icone{width:min(56vw,300px) !important} }
+
+/* Nome de cada camada passa para o canto superior direito; títulos grandes centralizados das transições saem */
+.val-quadro-n{left:auto;right:6%;top:6%;text-align:right}
