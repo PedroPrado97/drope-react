@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import useScrollProgress from '../hooks/useScrollProgress.js'
 import { VALORES } from '../data/valores.js'
 import { clamp, lerp } from '../utils/numeros.js'
@@ -7,6 +8,28 @@ import { useIdioma } from '../context/Idioma.jsx'
 export default function Valores() {
   const { t } = useIdioma()
   const [ref, p] = useScrollProgress()
+
+  /* Aurora que acompanha o mouse: a posição do cursor é suavizada e vira variáveis CSS */
+  useEffect(() => {
+    const sec = ref.current
+    if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let alvoX = 0, alvoY = 0, x = 0, y = 0, raf = 0
+    const mover = (e) => {
+      const r = sec.getBoundingClientRect()
+      alvoX = ((e.clientX - r.left) / r.width) * 2 - 1
+      alvoY = ((e.clientY - r.top) / r.height) * 2 - 1
+    }
+    const passo = () => {
+      x += (alvoX - x) * 0.05
+      y += (alvoY - y) * 0.05
+      sec.style.setProperty('--mx', x.toFixed(4))
+      sec.style.setProperty('--my', y.toFixed(4))
+      raf = requestAnimationFrame(passo)
+    }
+    sec.addEventListener('pointermove', mover)
+    raf = requestAnimationFrame(passo)
+    return () => { sec.removeEventListener('pointermove', mover); cancelAnimationFrame(raf) }
+  }, [ref])
 
   /* Linha do tempo:
      · início: pilha de quadros deitada em perspectiva isométrica (como na referência), base verde translúcida embaixo;
@@ -28,6 +51,9 @@ export default function Valores() {
   return (
     <section className="val" id="valores" ref={ref} aria-label="Valores">
       <div className="val-stage" style={{ background: v.fundo, color: v.texto }}>
+        <div className="val-aurora" aria-hidden="true"><span /><span /><span /></div>
+        <div className="val-noise" aria-hidden="true" />
+
         <div className="val-fx" aria-hidden="true">
           <span className="val-grid" />
           <span className="val-scan" />

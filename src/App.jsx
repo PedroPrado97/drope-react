@@ -13,7 +13,6 @@ import Contato from './components/Contato.jsx'
 import Rodape from './components/Rodape.jsx'
 import Dock from './components/Dock.jsx'
 import Displacement from './components/Displacement.jsx'
-import EmBreve from './cases/EmBreve.jsx'
 
 function Pagina() {
   useReveal()
@@ -38,14 +37,7 @@ function Pagina() {
   )
 }
 
-/* Rotas internas: /em-breve tem página própria; o resto é a página principal */
-const ROTAS = {
-  '/em-breve': EmBreve,
-}
-
 export default function App() {
-  const Rota = ROTAS[window.location.pathname.replace(/\/$/, '')]
-  if (Rota) return <Rota />
   return (
     <IdiomaProvider>
       <Pagina />
