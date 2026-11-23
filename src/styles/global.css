@@ -1227,3 +1227,11 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 @media (prefers-reduced-motion:reduce){ .rup{display:none} }
 /* Valores: título sem caixa preta atrás */
 .val .val-top,.val .val-top *{background:transparent !important;box-shadow:none !important}
+
+/* Nomes das marcas completos, em até duas linhas, centralizados abaixo do ícone */
+.mq-item{width:150px;justify-content:flex-start}
+.mq-nome{white-space:normal !important;overflow:visible !important;text-overflow:clip !important;width:100%;max-width:150px;line-height:1.25;word-break:normal;overflow-wrap:break-word;hyphens:auto;font-size:clamp(10.5px,.85vw,13px);letter-spacing:.04em}
+@media (max-width:900px){ .mq-item{width:112px} .mq-nome{max-width:112px;font-size:10.5px} }
+
+/* Processo no desktop: fundo branco sólido, sem degradê na parte de baixo */
+.proc{background:#ffffff !important}
