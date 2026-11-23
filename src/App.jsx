@@ -12,7 +12,7 @@ import Servicos from './components/Servicos.jsx'
 import Contato from './components/Contato.jsx'
 import Rodape from './components/Rodape.jsx'
 import Dock from './components/Dock.jsx'
-import Ruptura from './components/Ruptura.jsx'
+import Displacement from './components/Displacement.jsx'
 
 function Pagina() {
   useReveal()
@@ -32,7 +32,7 @@ function Pagina() {
       </main>
       <Rodape />
       <Dock />
-      <Ruptura />
+      <Displacement />
     </>
   )
 }

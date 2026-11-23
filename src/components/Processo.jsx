@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useIdioma } from '../context/Idioma.jsx'
+import Tecido from './Tecido.jsx'
 
 const ETAPAS = [
   {
@@ -123,6 +124,7 @@ export default function Processo() {
   return (
     <section className="proc" id="processo" ref={ref} aria-label="Processo">
       <div className="proc-stage">
+        <Tecido />
         <header className="proc-head">
           <h2 className="proc-title">
             <span className="proc-num5">5</span>
