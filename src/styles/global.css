@@ -1235,3 +1235,17 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 
 /* Processo no desktop: fundo branco sólido, sem degradê na parte de baixo */
 .proc{background:#ffffff !important}
+
+/* ===== RUPTURA (transição global entre seções) ===== */
+.rp{position:fixed;inset:0;z-index:70;visibility:hidden;pointer-events:none;overflow:hidden}
+.rp.on{visibility:visible;pointer-events:auto}
+.rp-stage{position:absolute;inset:0;overflow:hidden;clip-path:polygon(0% 0%,100% 0%,100% 100%,0% 100%);will-change:clip-path}
+.rp-veu,.rp-f{position:absolute;inset:0;will-change:transform}
+.rp-veu{background:#ffffff;opacity:0}
+.rp-f1{background:#3B903F;clip-path:polygon(0 0,62% 0,46% 100%,0 100%)}
+.rp-f2{background:#215733;clip-path:polygon(40% 0,100% 0,100% 64%,26% 100%)}
+.rp-f3{background:#12312C;clip-path:polygon(0 0,100% 0,100% 40%,0 62%)}
+.rp-f4{background:#3B903F;clip-path:polygon(70% 0,100% 0,100% 100%,84% 100%)}
+.rp-f5{background:#12312C}
+.rp-linha{position:absolute;top:0;bottom:0;left:76%;width:3px;background:#6DC249;transform-origin:50% 0;will-change:transform}
+@media (prefers-reduced-motion:reduce){ .rp{display:none} }

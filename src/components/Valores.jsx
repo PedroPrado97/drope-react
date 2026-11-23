@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useIdioma } from '../context/Idioma.jsx'
 
-gsap.registerPlugin(ScrollTrigger)
 
 const VALORES = [
   {
@@ -29,38 +26,6 @@ export default function Valores() {
   const { t } = useIdioma()
   const ref = useRef(null)
   const [p, setP] = useState(0)
-
-  /* RUPTURA: ao entrar na seção, formas verdes atravessam a tela, cobrem tudo com #12312C
-     e a máscara se abre revelando a seção (tempo total ≈ 1,2 s). Reverte ao voltar. */
-  useEffect(() => {
-    const sec = ref.current
-    if (!sec) return
-    const overlay = sec.querySelector('.rup')
-    if (!overlay) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-
-    const tl = gsap.timeline({
-      paused: true,
-      onStart: () => { overlay.classList.add('on') },
-      onReverseComplete: () => { overlay.classList.remove('on') },
-      onComplete: () => { overlay.classList.remove('on') },
-    })
-    tl.fromTo('.rup-white', { scale: 1 }, { scale: 0.985, duration: 0.12, ease: 'power2.out' }, 0)
-      .fromTo('.rup-f1', { xPercent: -115 }, { xPercent: 0, duration: 0.42, ease: 'expo.out' }, 0.1)
-      .fromTo('.rup-f2', { xPercent: 115 }, { xPercent: 0, duration: 0.38, ease: 'power4.out' }, 0.18)
-      .fromTo('.rup-f5', { yPercent: -115 }, { yPercent: 0, duration: 0.34, ease: 'expo.out' }, 0.26)
-      .fromTo('.rup-f3', { yPercent: 100 }, { yPercent: 0, duration: 0.46, ease: 'expo.inOut' }, 0.36)
-      .fromTo('.rup-accent', { scaleY: 0 }, { scaleY: 1, duration: 0.3, ease: 'power3.out' }, 0.5)
-      .to('.rup-stage', { clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', duration: 0.42, ease: 'expo.inOut' }, 0.8)
-
-    const gatilho = ScrollTrigger.create({
-      trigger: sec,
-      start: 'top 8%',
-      onEnter: () => tl.restart(),
-      onLeaveBack: () => tl.reverse(),
-    })
-    return () => { gatilho.kill(); tl.kill() }
-  }, [])
 
   useEffect(() => {
     const sec = ref.current
@@ -98,16 +63,6 @@ export default function Valores() {
 
   return (
     <section className="val" id="valores" ref={ref} aria-label="Valores">
-      <div className="rup" aria-hidden="true">
-        <div className="rup-stage">
-          <div className="rup-white" />
-          <div className="rup-f rup-f1" />
-          <div className="rup-f rup-f2" />
-          <div className="rup-f rup-f5" />
-          <div className="rup-f rup-f3" />
-          <div className="rup-accent" />
-        </div>
-      </div>
       <div className="val-stage" style={{ background: v.fundo, color: v.texto }}>
         <div className="val-aurora" aria-hidden="true"><span /><span /><span /></div>
 
