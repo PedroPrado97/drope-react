@@ -1197,3 +1197,13 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .proc-panel:not(.on) > *{transition-delay:0s}
 /* Valores: o fundo da página trava e só os quadros se movem */
 .val{overflow:clip !important}
+
+/* Processo no celular: degradê suave vindo da seção anterior, título quebrando em linhas e textos sempre legíveis */
+@media (max-width:900px){
+  .proc{background:linear-gradient(180deg,#070d0b 0,#16231f 5vh,#6f7a75 12vh,#ffffff 22vh,#ffffff 100%)}
+  .proc-txt span{white-space:normal}
+  .proc-txt{font-size:6.6vw !important}
+  .proc-title{--n:clamp(64px,19vw,110px)}
+  .proc-head{background:#ffffff}
+  .proc-panel > *{opacity:1 !important;transform:none !important;transition:none}
+}
