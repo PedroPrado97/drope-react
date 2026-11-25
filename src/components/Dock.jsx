@@ -57,11 +57,8 @@ export default function Dock() {
         <a href={"#projetos"} data-i18n={"d-projetos"}>
           {t("Projetos")}
         </a>
-        <a href={"#processo"} data-i18n={"d-processo"}>
-          {t("Processo")}
-        </a>
-        <a href={"#sobre"} data-i18n={"d-dif"}>
-          {t("Diferenciais")}
+        <a href={"#processo"} data-i18n={"d-sobre"}>
+          {t("Sobre")}
         </a>
       </div>
       <a className={"dock-cta"} href={"#contato"}>

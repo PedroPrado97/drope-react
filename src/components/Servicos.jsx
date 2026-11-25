@@ -3,12 +3,6 @@ export default function Servicos() {
   const { t } = useIdioma()
   return (
     <section className={"sv"} id={"servicos"} aria-label={t("Servi\u00e7os")}>
-      <p className={"kicker reveal"}>
-        <span>
-          {"(05)"}
-        </span>
-        {" Servi\u00e7os"}
-      </p>
       <ul className={"sv-list"}>
         <li className={"sv-row reveal"}>
           <span className={"sv-no"}>

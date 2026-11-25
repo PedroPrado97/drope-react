@@ -1357,3 +1357,16 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .vt,.proc,.vc{padding:0 !important;margin:0 !important}
 .vt{margin-bottom:0 !important}
 .vc-stage{margin:0 !important}
+
+/* "Nossos valores" sem caixa atrás do texto */
+.vc-head,.vc-head *{background:none !important;background-color:transparent !important;box-shadow:none !important;border:0 !important;padding:0 !important;outline:none !important;text-shadow:none !important}
+.vc-kicker{display:inline-block;color:#f3f7f2}
+
+/* Títulos dos valores (Curiosidade, Intenção, Coragem) levemente menores */
+.vc-titulo-linha{font-size:calc(var(--titulo) * .8) !important}
+
+/* ===== iPhone 3D (apresentação de publicações) ===== */
+.ip-sec{padding:0 !important;margin:0 !important;background:transparent}
+.ip{position:relative;width:100%;height:min(92vh,820px);overflow:hidden}
+.ip canvas{display:block;width:100%;height:100%;outline:none}
+@media (max-width:900px){ .ip{height:min(78vh,640px)} }

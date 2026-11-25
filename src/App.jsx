@@ -13,6 +13,7 @@ import Contato from './components/Contato.jsx'
 import Rodape from './components/Rodape.jsx'
 import Dock from './components/Dock.jsx'
 import Displacement from './components/Displacement.jsx'
+import IphoneShowcase from './components/IphoneShowcase.jsx'
 
 function Pagina() {
   useReveal()
@@ -24,6 +25,7 @@ function Pagina() {
         <Hero />
         <Marcas />
         <Projetos />
+        <IphoneShowcase />
         <Processo />
         <Valores />
         <Sobre />

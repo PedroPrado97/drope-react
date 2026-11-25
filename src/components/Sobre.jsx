@@ -4,12 +4,6 @@ export default function Sobre() {
   return (
     <section className={"sb"} id={"sobre"} aria-label={"Sobre o Drope"}>
       <div className={"sb-left reveal"}>
-        <p className={"kicker"}>
-          <span>
-            {"(03)"}
-          </span>
-          {" O est\u00fadio"}
-        </p>
         <h2 className={"sb-title"}>
           {t("Sobre o")}
           <br />

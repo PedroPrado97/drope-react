@@ -3,12 +3,6 @@ export default function Contato() {
   const { t } = useIdioma()
   return (
     <section className={"cto"} id={"contato"} aria-label={t("Contato")}>
-      <p className={"kicker reveal"}>
-        <span>
-          {"(06)"}
-        </span>
-        {" Contato"}
-      </p>
       <h2 className={"cto-title reveal"}>
         {t("Vamos construir algo")}
         <br />
