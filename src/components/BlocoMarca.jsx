@@ -5,16 +5,18 @@ import { useIdioma } from '../context/Idioma.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/* Bloco de 6 lados. A frente (verde #215733) traz a mensagem; as outras cinco faces mostram trabalhos.
-   Ao rolar, o bloco gira rápido e vai desacelerando, como um peão, até parar com a frente voltada
-   para o público. Depois, o quadro pequeno dentro do texto cresce até ocupar a tela. */
-const FACES = {
-  costas: '/media/bloco/la-frontera.webp',
-  topo: '/media/bloco/eu-amo-volei.webp',
-  base: '/media/bloco/1-cafe.webp',
-  esquerda: '/media/bloco/ello.webp',
-  direita: '/media/bloco/cartao.webp',
-}
+/* Prisma de 6 faces iguais (como uma roleta). Gira sozinho ao entrar na seção,
+   desacelera, para com a frente verde voltada para o público, espera 3 segundos
+   e então o quadro pequeno cresce até ocupar a tela. */
+const LATERAIS = [
+  '/media/bloco/la-frontera.webp',
+  '/media/bloco/eu-amo-volei.webp',
+  '/media/bloco/1-cafe.webp',
+  '/media/bloco/ello.webp',
+  '/media/bloco/cartao.webp',
+]
+const FACES = 6
+const PASSO = 360 / FACES
 
 export default function BlocoMarca() {
   const { t } = useIdioma()
@@ -36,57 +38,59 @@ export default function BlocoMarca() {
         return `inset(${r.top}px ${W - r.right}px ${H - r.bottom}px ${r.left}px)`
       }
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sec,
-          start: 'top top',
-          end: '+=340%',
-          pin: '.bm-stage',
-          scrub: 0.6,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
+      /* 3 voltas completas (múltiplo de 60°), terminando com a face 0 (frente) */
+      const tl = gsap.timeline({ paused: true })
+      tl.fromTo(cubo,
+        { rotationX: 0 },
+        { rotationX: -360 * 3, duration: 4.2, ease: 'power3.out' })
+        .to({}, { duration: 3 })
+        .fromTo(zoom,
+          { autoAlpha: 0, clipPath: insetDoMini },
+          { autoAlpha: 1, clipPath: 'inset(0px 0px 0px 0px)', duration: 1, ease: 'power3.inOut' })
+
+      const gatilho = ScrollTrigger.create({
+        trigger: sec,
+        start: 'top 65%',
+        onEnter: () => tl.restart(),
+        onLeaveBack: () => tl.pause(0),
       })
 
-      /* giro do peão: 4 voltas em X e 2 em Y, desacelerando até a frente (0°, 0°) */
-      tl.fromTo(cubo,
-        { rotationX: 0, rotationY: 0 },
-        { rotationX: -1440, rotationY: 720, duration: 1, ease: 'power3.out' },
-        0)
-      /* pausa com a frente à vista */
-      tl.to({}, { duration: 0.25 }, 1)
-      /* zoom do quadro pequeno até ocupar a tela */
-      tl.fromTo(zoom,
-        { autoAlpha: 0, clipPath: insetDoMini },
-        { autoAlpha: 1, clipPath: 'inset(0px 0px 0px 0px)', duration: 0.9, ease: 'power3.inOut' },
-        1.25)
+      return () => gatilho.kill()
     }, sec)
 
     return () => ctx.revert()
   }, [])
+
+  /* face 0 = frente (verde); faces 1 a 5 = trabalhos, cada uma a 60° da anterior */
+  const angulo = (i) => i * PASSO
+  const estiloFace = (i) => ({
+    width: 'var(--s)',
+    height: 'var(--h)',
+    transform: `translate(-50%, -50%) rotateX(${angulo(i)}deg) translateZ(calc(var(--s) * 0.866))`,
+  })
 
   return (
     <section ref={secRef} className="bm" id="bloco" aria-label="Toda marca tem algo a dizer">
       <div className="bm-stage">
         <div className="bm-cena">
           <div className="bm-cubo">
-            <div className="bm-face bm-frente">
+            <div className="bm-face bm-frente" style={estiloFace(0)}>
               <p>
                 {t('Toda marca tem algo')}{' '}
-                <span className="bm-mini"><img src={FACES.costas} alt="" /></span>{' '}
+                <span className="bm-mini"><img src={LATERAIS[0]} alt="" /></span>{' '}
                 {t('a dizer. Vamos descobrir o que é?')}
               </p>
             </div>
-            <div className="bm-face bm-costas"><img src={FACES.costas} alt="" /></div>
-            <div className="bm-face bm-topo"><img src={FACES.topo} alt="" /></div>
-            <div className="bm-face bm-base"><img src={FACES.base} alt="" /></div>
-            <div className="bm-face bm-esquerda"><img src={FACES.esquerda} alt="" /></div>
-            <div className="bm-face bm-direita"><img src={FACES.direita} alt="" /></div>
+            {LATERAIS.map((src, i) => (
+              <div key={src} className="bm-face" style={estiloFace(i + 1)}>
+                <img src={src} alt="" />
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="bm-zoom" aria-hidden="true">
-          <img src={FACES.costas} alt="" />
+          <img src={LATERAIS[0]} alt="" />
           <p>{t('Próximo slide')}</p>
         </div>
       </div>

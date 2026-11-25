@@ -1437,3 +1437,19 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .bm-costas{width:var(--w);height:var(--h);transform:translate(-50%,-50%) rotateY(180deg) translateZ(calc(var(--d) / 2))}
 .bm-frente{background:radial-gradient(120% 90% at 18% 0%,#3a8a5a 0%,rgba(58,138,90,0) 55%),linear-gradient(135deg,#215733 0%,#2b6b42 50%,#215733 100%) !important;border:1px solid rgba(190,240,170,.35) !important;box-shadow:inset 0 0 60px rgba(255,255,255,.06)}
 .bm-face{box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+
+/* ===== Prisma de 6 faces iguais (roleta automática) ===== */
+.bm{height:100vh;height:100svh}
+.bm-stage{--s:min(44vw,460px);--h:min(30vw,300px);position:relative;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;perspective:1600px}
+@media (max-width:900px){ .bm-stage{--s:min(70vw,340px);--h:min(44vw,220px)} }
+.bm-cena{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+.bm-cubo{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;transform:rotateX(0deg)}
+.bm-face{position:absolute;left:0;top:0;overflow:hidden;backface-visibility:hidden;background:#0a0f0d;margin:0}
+.bm-face img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) brightness(.85)}
+.bm-frente{background:radial-gradient(120% 90% at 18% 0%,#3a8a5a 0%,rgba(58,138,90,0) 55%),linear-gradient(135deg,#215733 0%,#2b6b42 50%,#215733 100%) !important;display:flex;align-items:center;justify-content:center;padding:clamp(16px,2.6vw,36px);border:1px solid rgba(190,240,170,.35) !important}
+.bm-frente p{margin:0;color:#f3f7f2;font-size:clamp(18px,2.4vw,40px);font-weight:800;line-height:1.15;letter-spacing:-.02em;text-align:center}
+.bm-mini{display:inline-block;width:1.7em;height:1em;border-radius:.18em;overflow:hidden;vertical-align:middle;border:1px solid rgba(109,194,73,.6)}
+.bm-mini img{width:100%;height:100%;object-fit:cover;display:block}
+.bm-zoom{position:absolute;inset:0;z-index:20;visibility:hidden;background:#12312C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.bm-zoom img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.bm-zoom p{position:relative;margin:0;color:#f3f7f2;font-size:clamp(28px,4vw,72px);font-weight:800;letter-spacing:-.03em}
