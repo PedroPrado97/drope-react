@@ -1497,3 +1497,7 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .bm-expand-veu{position:absolute;inset:0;background:rgba(18,49,44,.82)}
 .bm-faq-wrap{position:fixed;inset:0;z-index:9500;visibility:visible;pointer-events:auto;opacity:0;overflow:auto}
 .bm-faq-wrap .bm-faq{position:relative;min-height:100vh;box-sizing:border-box}
+
+/* Bloco: a tela fica fixa e centralizada enquanto a seção rola (sticky, sem pin do GSAP) */
+.bm{height:300vh;position:relative}
+.bm-stage{position:sticky !important;top:0;height:100vh;height:100svh;overflow:hidden}

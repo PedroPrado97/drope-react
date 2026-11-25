@@ -72,15 +72,6 @@ export default function BlocoMarca() {
         onLeaveBack: () => giro.pause(0),
       })
 
-      /* 2) a tela fica fixa enquanto a página rola */
-      const fixa = ScrollTrigger.create({
-        trigger: sec,
-        start: 'top top',
-        end: 'bottom bottom',
-        pin: '.bm-stage',
-        pinSpacing: false,
-      })
-
       /* 3) expansão a partir da imagem pequena até a tela inteira, proporcional ao scroll */
       const estado = { p: 0 }
       const desenhar = (p) => {
@@ -111,7 +102,7 @@ export default function BlocoMarca() {
         onLeaveBack: () => gsap.to(estado, { p: 0, duration: 0.3, overwrite: true, onUpdate: () => desenhar(estado.p) }),
       })
 
-      return () => { gatilhoGiro.kill(); fixa.kill(); expansao.kill(); giro.kill() }
+      return () => { gatilhoGiro.kill(); expansao.kill(); giro.kill() }
     }, sec)
 
     return () => ctx.revert()
