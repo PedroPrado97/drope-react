@@ -229,7 +229,14 @@ export default function IphoneShowcase() {
       }
 
       const observador = new IntersectionObserver(([e]) => {
-        visivel = e.isIntersecting
+        const entrou = e.isIntersecting
+        /* ao voltar para a seção, a animação de entrada começa de novo */
+        if (entrou && !visivel && !reduzir && introFeita) {
+          introFeita = false
+          inicio = 0
+          aplicarPose(-0.25, -1.1, 0, -6, 0.82)
+        }
+        visivel = entrou
         if (visivel && !introFeita && !inicio) iniciarIntro()
       }, { threshold: 0.25 })
       observador.observe(el)

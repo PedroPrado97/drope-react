@@ -18,26 +18,6 @@ export default function Sobre() {
         <p className={"sb-body reveal"}>
           {t("Minha missão é transformar essa essência em uma identidade que expresse sua personalidade, fortaleça seu posicionamento e destaque sua marca. Não trabalho com fórmulas prontas, mas com ideias, escolhas e soluções próprias para cada projeto. Afinal, uma boa marca não precisa apenas ser vista, ela precisa ter algo mais pra dizer.")}
         </p>
-        <p className={"sb-traits reveal"} aria-label={"Personalidade"}>
-          <span>
-            {t("curiosa")}
-          </span>
-          <span>
-            {t("provocadora")}
-          </span>
-          <span>
-            {t("autoral")}
-          </span>
-          <span>
-            {t("experimental")}
-          </span>
-          <span>
-            {t("humana")}
-          </span>
-          <span>
-            {t("observadora")}
-          </span>
-        </p>
       </div>
     </section>
   )
