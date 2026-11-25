@@ -1349,3 +1349,11 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .vc-bg::after{content:"";position:absolute;inset:0;background:rgba(10,20,17,.28)}
 .vc-conteudo{z-index:1}
 @media (max-width:900px){ .vc-bg{position:absolute} }
+
+/* Sem faixa entre Processo e Valores: as seções não usam o espaçamento padrão de <section> */
+.proc,.vc{padding:0 !important;margin:0 !important}
+
+/* Sem faixas escuras entre Projetos, Processo e Valores: essas três seções ficam encostadas */
+.vt,.proc,.vc{padding:0 !important;margin:0 !important}
+.vt{margin-bottom:0 !important}
+.vc-stage{margin:0 !important}
