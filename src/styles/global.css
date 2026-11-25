@@ -1511,3 +1511,18 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .bm{margin:0 !important;padding:0 !important}
 .bm-stage{height:100vh !important;height:100dvh !important;min-height:0 !important}
 .bm-cena{position:absolute !important;top:0 !important;bottom:0 !important;left:0 !important;right:0 !important;margin:auto !important;width:0 !important;height:0 !important}
+
+/* ===== Dúvidas frequentes: 9 quadros (3 x 3) ocupando a tela inteira, sem numeração ===== */
+.bm-faq{height:100%;justify-content:flex-start;padding:clamp(28px,5vh,64px) clamp(20px,4vw,64px) clamp(20px,4vh,48px)}
+.bm-faq-titulo{flex:0 0 auto}
+.bm-faq-lista{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid rgba(243,247,242,.18);border-left:1px solid rgba(243,247,242,.18)}
+.bm-faq-item{display:flex;flex-direction:column;justify-content:flex-start;gap:clamp(8px,1.4vh,16px);padding:clamp(14px,2.4vh,28px) clamp(14px,1.8vw,28px);border-right:1px solid rgba(243,247,242,.18);border-bottom:1px solid rgba(243,247,242,.18);min-height:0;overflow:hidden;transition:background .35s ease}
+.bm-faq-item:hover,.bm-faq-item:focus-visible{background:rgba(109,194,73,.08)}
+.bm-faq-q{font-size:clamp(15px,1.45vw,22px);font-weight:700;line-height:1.25;letter-spacing:-.01em;transition:font-size .35s ease,color .35s ease,transform .35s ease}
+.bm-faq-item:hover .bm-faq-q,.bm-faq-item:focus-visible .bm-faq-q{font-size:clamp(17px,1.7vw,26px);transform:none}
+.bm-faq-a{display:block;grid-template-rows:none}
+.bm-faq-a span{display:block;overflow:visible;font-size:clamp(12.5px,1.05vw,16px);line-height:1.5;color:#c9d6cc;opacity:1}
+@media (max-width:900px){
+  .bm-faq-lista{grid-template-columns:1fr;grid-template-rows:none;grid-auto-rows:auto;overflow:auto}
+  .bm-faq-item{padding:16px 12px}
+}

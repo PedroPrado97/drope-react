@@ -20,13 +20,15 @@ const LATERAIS = [
   '/media/bloco/cartao.webp',
 ]
 const FAQ = [
-  { p: 'Quanto tempo leva um projeto de identidade visual?', r: 'Depende do escopo. Uma identidade completa costuma levar de 3 a 6 semanas, contando a investigação, as propostas e os ajustes.' },
-  { p: 'Como funciona o processo de criação?', r: 'Começamos por perguntas sobre o negócio, o público e o contexto. Depois, organizamos a estratégia, criamos a marca e entregamos as aplicações.' },
-  { p: 'Vocês atendem empresas de outras cidades?', r: 'Sim. Todo o processo acontece online, com reuniões, apresentações e entregas digitais, independentemente da localização.' },
-  { p: 'O que está incluso na identidade visual?', r: 'Logotipo, paleta de cores, tipografia, regras de uso e arquivos para aplicação em redes sociais, impressos e fachadas.' },
-  { p: 'Preciso já ter um logotipo para começar?', r: 'Não. Muitos projetos começam do zero. Se já existir uma marca, analisamos o que funciona e o que precisa evoluir.' },
-  { p: 'Como funciona o investimento?', r: 'Cada projeto recebe um orçamento sob medida. Trabalhamos com entrada e parcelas, e o valor fica claro antes de começar.' },
-  { p: 'Vocês fazem aplicações além do logotipo?', r: 'Sim: uniformes, embalagens, sinalização, papelaria, cardápios e peças para redes sociais, sempre com a identidade da marca.' },
+  { p: "Quanto tempo leva um projeto de identidade visual?", r: "Depende da complexidade e do escopo. Após entender suas necessidades, apresentamos um cronograma com os prazos de cada etapa." },
+  { p: "Como funciona o processo de criação?", r: "Nosso processo acontece em cinco movimentos: Perguntar, Entender, Organizar, Encontrar e Traduzir. Investigamos o negócio antes de transformar suas particularidades em uma identidade visual." },
+  { p: "Vocês atendem empresas de outras cidades?", r: "Sim! Atendemos em todo o Brasil, com reuniões e acompanhamento online." },
+  { p: "O que está incluso na identidade visual?", r: "Pode incluir logotipo e variações, símbolo, cores, tipografia, elementos gráficos e diretrizes de aplicação. O escopo é definido conforme cada projeto." },
+  { p: "Preciso já ter um logotipo para começar?", r: "Não! Podemos construir sua marca do zero ou desenvolver uma identidade a partir do que você já possui." },
+  { p: "Como funciona o investimento?", r: "O valor depende das necessidades e do escopo do projeto. Após uma conversa inicial, apresentamos uma proposta personalizada com valores e condições de pagamento." },
+  { p: "Vocês fazem aplicações além do logotipo?", r: "Sim! Criamos aplicações para materiais gráficos, papelaria, embalagens, peças digitais e outros pontos de contato da marca." },
+  { p: "O Drope também trabalha com estratégia de marca?", r: "Sim! Investigamos o negócio e seu posicionamento para encontrar o que o torna único e transformar isso em uma marca coerente." },
+  { p: "A impressão dos materiais está incluída no projeto?", r: "Não. Entregamos os arquivos digitais prontos para produção. Os custos de impressão e fabricação são contratados separadamente." },
 ]
 
 const lerp = (a, b, t) => a + (b - a) * t
@@ -59,7 +61,16 @@ export default function BlocoMarca() {
       const faqWrap = sec.querySelector('.bm-faq-wrap')
       const itens = sec.querySelectorAll('.bm-faq-item')
 
-      /* expansão da imagem pequena (ao lado de "algo") até a tela inteira */
+      /* 1) a roleta gira sozinha ao chegar e para com a frente */
+      let giroFeito = false
+      const giro = gsap.timeline({
+        paused: true,
+        onStart: () => { giroFeito = false },
+        onComplete: () => { giroFeito = true; aplicar() },
+      })
+      giro.fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 2, duration: 3.6, ease: 'power2.out' })
+
+      /* 2) expansão da imagem pequena até a tela inteira, acompanhando a rolagem (vai e volta) */
       const estado = { p: 0 }
       const desenhar = (p) => {
         const r = mini.getBoundingClientRect()
@@ -73,33 +84,36 @@ export default function BlocoMarca() {
           borderRadius: lerp(4, 0, e),
           autoAlpha: p > 0 ? 1 : 0,
         })
-        gsap.set(faqWrap, { autoAlpha: clamp((p - 0.85) / 0.15) })
+        gsap.set(faqWrap, { autoAlpha: clamp((p - 0.7) / 0.3) })
+        gsap.set(itens, { opacity: clamp((p - 0.8) / 0.2), y: (1 - clamp((p - 0.8) / 0.2)) * 18 })
       }
       desenhar(0)
-      gsap.set(itens, { opacity: 0 })
 
-      /* sequência automática: a roleta gira e para; 2 s depois a imagem se expande
-         até ocupar a tela e, em seguida, aparecem as dúvidas frequentes */
-      const sequencia = gsap.timeline({ paused: true })
-      sequencia
-        .fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 2, duration: 3.6, ease: 'power2.out' })
-        .to({}, { duration: 2 })
-        .to(estado, { p: 1, duration: 1.2, ease: 'power2.inOut', onUpdate: () => desenhar(estado.p) })
-        .fromTo(itens, { opacity: 0, y: 18 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.6 }, '-=0.2')
+      const expansao = ScrollTrigger.create({
+        trigger: sec,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: () => aplicar(),
+      })
+      const aplicar = () => {
+        const alvo = giroFeito ? expansao.progress : 0
+        gsap.to(estado, { p: alvo, duration: 0.35, ease: 'power2.out', overwrite: true, onUpdate: () => desenhar(estado.p) })
+      }
 
+      /* 3) a roleta começa a girar quando a seção chega ao topo; ao voltar, ela reinicia */
       const gatilho = ScrollTrigger.create({
         trigger: sec,
         start: 'top top',
-        onEnter: () => sequencia.restart(),
+        onEnter: () => giro.restart(),
         onLeaveBack: () => {
-          sequencia.pause(0)
+          giro.pause(0)
+          giroFeito = false
           estado.p = 0
           desenhar(0)
-          gsap.set(itens, { opacity: 0 })
         },
       })
 
-      return () => { gatilho.kill(); sequencia.kill() }
+      return () => { gatilho.kill(); expansao.kill(); giro.kill() }
     }, sec)
 
     return () => ctx.revert()
