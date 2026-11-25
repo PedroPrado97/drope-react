@@ -82,9 +82,13 @@ export default function BlocoMarca() {
               </p>
             </div>
             {LATERAIS.map((src, i) => (
-              <div key={src} className="bm-face" style={estiloFace(i + 1)}>
-                <img src={src} alt="" />
-              </div>
+              <div
+                key={src}
+                className="bm-face bm-foto"
+                role="img"
+                aria-label=""
+                style={{ ...estiloFace(i + 1), backgroundImage: `url(${src})` }}
+              />
             ))}
           </div>
         </div>
