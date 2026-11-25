@@ -1403,3 +1403,37 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
   .sb-left .ip{height:min(70vh,560px) !important}
   .sb-right{align-self:stretch !important}
 }
+
+/* Celular: sem faixa escura entre Processo e Nossos valores; o título entra direto no capítulo */
+@media (max-width:900px){
+  .vc,.vc-stage{background:transparent !important}
+  .vc-head{margin:0 !important;padding:72px 24px 32px !important;background:#12312C !important}
+}
+
+/* ===== Bloco 3D "Toda marca tem algo a dizer" ===== */
+.bm{position:relative;background:#050805}
+.bm-stage{position:relative;height:100vh;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center;perspective:1600px;--w:min(56vw,640px);--h:min(38vw,380px);--d:min(22vw,200px)}
+.bm-cena{position:relative;width:var(--w);height:var(--h);transform-style:preserve-3d}
+.bm-cubo{position:absolute;left:0;top:0;width:100%;height:100%;transform-style:preserve-3d;transform:rotateX(0deg) rotateY(0deg)}
+.bm-face{position:absolute;left:50%;top:50%;overflow:hidden;backface-visibility:hidden;background:#0a0f0d;margin:0}
+.bm-face img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) brightness(.85)}
+.bm-frente{width:var(--w);height:var(--h);transform:translate(-50%,-50%) translateZ(calc(var(--d) / 2));background:#12312C;display:flex;align-items:center;justify-content:center;padding:clamp(18px,3vw,40px);border:1px solid rgba(109,194,73,.35)}
+.bm-frente p{margin:0;color:#f3f7f2;font-size:clamp(20px,2.6vw,44px);font-weight:800;line-height:1.15;letter-spacing:-.02em;text-align:center}
+.bm-mini{display:inline-block;width:1.7em;height:.95em;border-radius:.18em;overflow:hidden;vertical-align:middle;border:1px solid rgba(109,194,73,.6)}
+.bm-mini img{width:100%;height:100%;object-fit:cover;display:block}
+.bm-topo{width:var(--w);height:var(--d);transform:translate(-50%,-50%) rotateX(90deg) translateZ(calc(var(--h) / 2))}
+.bm-base{width:var(--w);height:var(--d);transform:translate(-50%,-50%) rotateX(-90deg) translateZ(calc(var(--h) / 2))}
+.bm-direita{width:var(--d);height:var(--h);transform:translate(-50%,-50%) rotateY(90deg) translateZ(calc(var(--w) / 2))}
+.bm-esquerda{width:var(--d);height:var(--h);transform:translate(-50%,-50%) rotateY(-90deg) translateZ(calc(var(--w) / 2))}
+.bm-zoom{position:absolute;inset:0;z-index:20;visibility:hidden;background:#12312C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.bm-zoom img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.bm-zoom p{position:relative;margin:0;color:#f3f7f2;font-size:clamp(28px,4vw,72px);font-weight:800;letter-spacing:-.03em}
+@media (max-width:900px){
+  .bm-stage{--w:min(70vw,360px);--h:min(60vw,300px);--d:min(34vw,140px)}
+  .bm-frente p{font-size:clamp(18px,5vw,28px)}
+}
+
+/* ===== Bloco de 6 lados: frente verde #215733 com brilho, cinco faces com trabalhos ===== */
+.bm-costas{width:var(--w);height:var(--h);transform:translate(-50%,-50%) rotateY(180deg) translateZ(calc(var(--d) / 2))}
+.bm-frente{background:radial-gradient(120% 90% at 18% 0%,#3a8a5a 0%,rgba(58,138,90,0) 55%),linear-gradient(135deg,#215733 0%,#2b6b42 50%,#215733 100%) !important;border:1px solid rgba(190,240,170,.35) !important;box-shadow:inset 0 0 60px rgba(255,255,255,.06)}
+.bm-face{box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}

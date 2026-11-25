@@ -13,6 +13,7 @@ import Contato from './components/Contato.jsx'
 import Rodape from './components/Rodape.jsx'
 import Dock from './components/Dock.jsx'
 import Displacement from './components/Displacement.jsx'
+import BlocoMarca from './components/BlocoMarca.jsx'
 
 function Pagina() {
   useReveal()
@@ -27,6 +28,7 @@ function Pagina() {
         <Processo />
         <Valores />
         <Sobre />
+        <BlocoMarca />
         <Servicos />
         <Contato />
       </main>
