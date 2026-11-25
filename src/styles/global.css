@@ -1458,3 +1458,25 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .bm-foto{background-size:cover;background-position:center;background-repeat:no-repeat;overflow:visible;backface-visibility:visible;filter:none}
 .bm-face{overflow:visible}
 .bm-frente{overflow:hidden !important}
+
+/* ===== Zoom do bloco: tela de dúvidas frequentes ===== */
+.bm{height:300vh}
+.bm-stage{height:100vh;height:100svh}
+.bm-zoom{visibility:hidden;background:#12312C;align-items:stretch;justify-content:stretch;padding:0;gap:0}
+.bm-zoom-fundo{opacity:.12 !important;filter:saturate(.6)}
+.bm-faq{position:relative;z-index:1;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,6vh,80px) clamp(24px,6vw,120px);box-sizing:border-box}
+.bm-faq-titulo{margin:0 0 clamp(16px,3vh,36px);font-size:var(--titulo);font-weight:800;letter-spacing:-.03em;line-height:1;color:#6DC249;text-transform:uppercase}
+.bm-faq-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(6px,1.4vh,14px)}
+.bm-faq-item{border-top:1px solid rgba(243,247,242,.18);padding:clamp(6px,1.2vh,12px) 0;cursor:default;color:#f3f7f2;outline:none;transition:color .3s ease}
+.bm-faq-q{display:block;font-size:clamp(16px,1.5vw,24px);font-weight:600;letter-spacing:-.01em;line-height:1.25;transition:font-size .35s ease,color .35s ease,transform .35s ease}
+.bm-faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease}
+.bm-faq-a span{overflow:hidden;display:block;font-size:clamp(14px,1.15vw,18px);line-height:1.5;color:#cfe5c8;opacity:0;transition:opacity .35s ease}
+.bm-faq-item:hover,.bm-faq-item:focus-visible{color:#6DC249}
+.bm-faq-item:hover .bm-faq-q,.bm-faq-item:focus-visible .bm-faq-q{font-size:clamp(19px,1.9vw,30px);transform:translateX(6px)}
+.bm-faq-item:hover .bm-faq-a,.bm-faq-item:focus-visible .bm-faq-a{grid-template-rows:1fr;margin-top:8px}
+.bm-faq-item:hover .bm-faq-a span,.bm-faq-item:focus-visible .bm-faq-a span{opacity:1}
+@media (max-width:900px){
+  .bm-faq{justify-content:flex-start;padding-top:96px}
+  .bm-faq-q{font-size:clamp(15px,4vw,19px)}
+  .bm-faq-item:hover .bm-faq-q{font-size:clamp(17px,4.4vw,22px)}
+}
