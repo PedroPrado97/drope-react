@@ -8,9 +8,6 @@ import Projetos from './components/Projetos.jsx'
 import Sobre from './components/Sobre.jsx'
 import Processo from './components/Processo.jsx'
 import Valores from './components/Valores.jsx'
-import Servicos from './components/Servicos.jsx'
-import Contato from './components/Contato.jsx'
-import Rodape from './components/Rodape.jsx'
 import Dock from './components/Dock.jsx'
 import Displacement from './components/Displacement.jsx'
 import BlocoMarca from './components/BlocoMarca.jsx'
@@ -29,10 +26,7 @@ function Pagina() {
         <Valores />
         <Sobre />
         <BlocoMarca />
-        <Servicos />
-        <Contato />
       </main>
-      <Rodape />
       <Dock />
       <Displacement />
     </>
