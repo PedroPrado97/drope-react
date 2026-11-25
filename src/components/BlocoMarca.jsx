@@ -25,14 +25,14 @@ const FAQ = [
   { p: 'Vocês fazem aplicações além do logotipo?', r: 'Sim: uniformes, embalagens, sinalização, papelaria, cardápios e peças para redes sociais, sempre com a identidade da marca.' },
 ]
 
-/* Cada face é centralizada pela margem (no próprio eixo) e depois girada em torno do centro do prisma;
-   assim as seis faces se encontram sem frestas. */
+/* Prisma hexagonal com eixo horizontal (X). Cada face tem altura h (lado do hexágono) e a distância
+   até o eixo é h·√3/2 (apótema). Assim as seis faces ficam coladas, do mesmo tamanho. */
 const estiloCentro = (grau) => ({
   width: 'var(--s)',
   height: 'var(--h)',
   marginLeft: 'calc(var(--s) / -2)',
   marginTop: 'calc(var(--h) / -2)',
-  transform: `rotateX(${grau}deg) translateZ(calc(var(--s) * 0.866))`,
+  transform: `rotateX(${grau}deg) translateZ(calc(var(--h) * 0.866))`,
 })
 
 export default function BlocoMarca() {
@@ -61,7 +61,7 @@ export default function BlocoMarca() {
         .to({}, { duration: 3 })
       const gatilhoGiro = ScrollTrigger.create({
         trigger: sec,
-        start: 'top 65%',
+        start: 'top top',
         onEnter: () => giro.restart(),
         onLeaveBack: () => giro.pause(0),
       })
