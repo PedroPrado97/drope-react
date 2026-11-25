@@ -73,11 +73,8 @@ export default function Displacement() {
     }
     document.addEventListener('click', onClick)
 
-    const gatilho = reduzir ? null : ScrollTrigger.create({
-      trigger: '#valores',
-      start: 'top 8%',
-      onEnter: () => { if (!ocupado) iniciar(null) },
-    })
+    /* Sem disparo automático ao rolar: o piscar ao chegar em Valores vinha desta transição */
+    const gatilho = null
 
     return () => {
       document.removeEventListener('click', onClick)

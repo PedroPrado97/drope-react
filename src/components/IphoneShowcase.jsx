@@ -53,7 +53,7 @@ export default function IphoneShowcase() {
       scene.add(luzContra)
 
       /* ---------- geometria do aparelho ---------- */
-      const W = 7.4, H = 15.2, R = 2.1, D = 0.62, BV = 0.12
+      const H = 15.2, W = H * (379 / 787), R = 2.1, D = 0.62, BV = 0.12
       const F = (D + 2 * BV) / 2 // z da face frontal
       const retangulo = (w, h, r) => {
         const s = new THREE.Shape()
@@ -73,8 +73,28 @@ export default function IphoneShowcase() {
         depth: D, bevelEnabled: true, bevelThickness: BV, bevelSize: BV, bevelSegments: 8, curveSegments: 28,
       })
       corpoGeo.center()
+      /* projeção planar da foto de costas: u/v calculados a partir de x/y, só na metade traseira */
+      corpoGeo.computeBoundingBox()
+      const bb = corpoGeo.boundingBox
+      const Lx = bb.max.x - bb.min.x, Ly = bb.max.y - bb.min.y
+      const pos = corpoGeo.attributes.position
+      const uvs = corpoGeo.attributes.uv
+      for (let i = 0; i < pos.count; i++) {
+        const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i)
+        if (z < 0) uvs.setXY(i, (bb.max.x - x) / Lx, (y - bb.min.y) / Ly)
+        else uvs.setXY(i, 0.5, 0.65)
+      }
+      uvs.needsUpdate = true
       const titanio = new THREE.MeshPhysicalMaterial({ color: 0x2b2d30, metalness: 1, roughness: 0.3, clearcoat: 0.6, clearcoatRoughness: 0.2 })
-      phone.add(new THREE.Mesh(corpoGeo, titanio))
+      const fotoCostas = new THREE.TextureLoader().load('/media/iphone/costas.webp', (t) => {
+        t.colorSpace = THREE.SRGBColorSpace
+        t.anisotropy = renderer.capabilities.getMaxAnisotropy()
+        capMat.map = t
+        capMat.needsUpdate = true
+      })
+      const capMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 0.35, roughness: 0.42, clearcoat: 0.5, clearcoatRoughness: 0.25 })
+      /* grupo 0 = faces (frente e costas), grupo 1 = laterais */
+      phone.add(new THREE.Mesh(corpoGeo, [capMat, titanio]))
 
       const preto = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.5, metalness: 0.2 })
       const vidro = new THREE.MeshPhysicalMaterial({ color: 0x0a0a0a, roughness: 0.05, metalness: 0, clearcoat: 1 })
@@ -92,29 +112,6 @@ export default function IphoneShowcase() {
         b.position.set(lado * (W / 2 + BV + 0.04), y, 0)
         phone.add(b)
       })
-
-      /* módulo de câmeras (traseira) */
-      const modGeo = new THREE.ExtrudeGeometry(retangulo(2.8, 2.8, 0.85), { depth: 0.14, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 4, curveSegments: 16 })
-      modGeo.center()
-      const modulo = new THREE.Mesh(modGeo, titanio)
-      modulo.position.set(-1.7, H / 2 - 2.2, -F - 0.1)
-      phone.add(modulo)
-      const lenteGeo = new THREE.CylinderGeometry(0.56, 0.56, 0.08, 36)
-      const aroGeo = new THREE.CylinderGeometry(0.66, 0.66, 0.05, 36)
-      ;[[-0.6, 0.6], [0.6, 0.6], [-0.6, -0.6]].forEach(([x, y]) => {
-        const aro = new THREE.Mesh(aroGeo, titanio)
-        aro.rotation.x = Math.PI / 2
-        aro.position.set(modulo.position.x + x, modulo.position.y + y, -F - 0.19)
-        phone.add(aro)
-        const lente = new THREE.Mesh(lenteGeo, vidro)
-        lente.rotation.x = Math.PI / 2
-        lente.position.set(modulo.position.x + x, modulo.position.y + y, -F - 0.2)
-        phone.add(lente)
-      })
-      const flash = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.05, 20), new THREE.MeshBasicMaterial({ color: 0xfff1d6 }))
-      flash.rotation.x = Math.PI / 2
-      flash.position.set(modulo.position.x + 0.6, modulo.position.y - 0.6, -F - 0.18)
-      phone.add(flash)
 
       /* ---------- tela com carrossel ---------- */
       const TW = 720, TH = 1480

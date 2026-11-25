@@ -1,4 +1,5 @@
 import { useIdioma } from '../context/Idioma.jsx'
+import IphoneShowcase from './IphoneShowcase.jsx'
 export default function Sobre() {
   const { t } = useIdioma()
   return (
@@ -38,6 +39,7 @@ export default function Sobre() {
           </span>
         </p>
       </div>
+      <IphoneShowcase />
     </section>
   )
 }
