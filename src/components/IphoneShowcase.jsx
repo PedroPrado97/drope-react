@@ -120,7 +120,11 @@ export default function IphoneShowcase() {
       const ctx = canvas.getContext('2d')
       const tela = new THREE.CanvasTexture(canvas)
       tela.colorSpace = THREE.SRGBColorSpace
-      const telaGeo = new THREE.PlaneGeometry(W - 0.42, H - 0.42)
+      const sw = W - 0.42, sh = H - 0.42
+      const telaGeo = new THREE.ShapeGeometry(retangulo(sw, sh, R - 0.21), 24)
+      const telaPos = telaGeo.attributes.position
+      const telaUv = telaGeo.attributes.uv
+      for (let i = 0; i < telaPos.count; i++) telaUv.setXY(i, (telaPos.getX(i) + sw / 2) / sw, (telaPos.getY(i) + sh / 2) / sh)
       const telaMat = new THREE.MeshBasicMaterial({ map: tela, toneMapped: false })
       const telaMesh = new THREE.Mesh(telaGeo, telaMat)
       telaMesh.position.z = F + 0.004

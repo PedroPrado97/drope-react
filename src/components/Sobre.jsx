@@ -6,10 +6,6 @@ export default function Sobre() {
     <section className={"sb"} id={"sobre"} aria-label={"Sobre o Drope"}>
       <div className={"sb-left"}>
         <IphoneShowcase />
-        <p className={"ip-legenda"}>
-          <strong>pedropradodesign</strong>{" "}
-          {t("Nunca foi sobre criar logos apenas. E sim sobre construir marcas com presença, intenção e personalidade.")} ⚡
-        </p>
       </div>
       <div className={"sb-right"}>
         <h2 className={"sb-title"}>
@@ -17,10 +13,10 @@ export default function Sobre() {
           {" Drope"}
         </h2>
         <p className={"sb-lead reveal"}>
-          {t("Somos um est\u00fadio de cria\u00e7\u00e3o e estrutura\u00e7\u00e3o de marcas. Investigamos antes de desenhar, porque acreditamos que uma identidade precisa tornar percept\u00edvel aquilo que faz uma marca ser diferente.")}
+          {t("Sou designer especialista em criação e posicionamento de marcas para pessoas e empresas e acredito que uma marca forte vai além da aparência: ela precisa saber o que representa, o que comunica e como deseja ser percebida. Por isso, investigo antes de desenhar, buscando entender sua essência e encontrar aquilo que a torna única.")}
         </p>
         <p className={"sb-body reveal"}>
-          {t("N\u00e3o trabalhamos com f\u00f3rmulas prontas. Cada projeto nasce do universo pr\u00f3prio da marca e busca uma solu\u00e7\u00e3o que dificilmente poderia ter vindo de qualquer outro lugar. Observamos, provocamos e assumimos escolhas.")}
+          {t("Minha missão é transformar essa essência em uma identidade que expresse sua personalidade, fortaleça seu posicionamento e destaque sua marca. Não trabalho com fórmulas prontas, mas com ideias, escolhas e soluções próprias para cada projeto. Afinal, uma boa marca não precisa apenas ser vista, ela precisa ter algo mais pra dizer.")}
         </p>
         <p className={"sb-traits reveal"} aria-label={"Personalidade"}>
           <span>
