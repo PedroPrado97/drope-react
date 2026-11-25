@@ -1,0 +1,5 @@
+# O GitHub conta HTML para as estatísticas de linguagem.
+# As páginas de cases (public/*.html) são conteúdo estático e não fazem parte do código React,
+# então ficam fora da contagem para mostrar o idioma real do projeto (JavaScript e CSS).
+*.html linguist-detectable=false
+public/*.html linguist-vendored
