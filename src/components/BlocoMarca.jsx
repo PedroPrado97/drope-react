@@ -56,8 +56,13 @@ export default function BlocoMarca() {
       }
 
       /* 1) giro automático do prisma ao entrar na seção: 3 voltas, desacelera, para na frente e espera 3 s */
-      const giro = gsap.timeline({ paused: true })
-      giro.fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 3, duration: 4.2, ease: 'power3.out' })
+      /* durante o giro só aparecem as faces laterais (cilindro hexagonal); a frente verde surge ao parar */
+      const frente = sec.querySelector('.bm-frente')
+      gsap.set(frente, { autoAlpha: 0 })
+      let giroFeito = false
+      const giro = gsap.timeline({ paused: true, onStart: () => { giroFeito = false; gsap.set(frente, { autoAlpha: 0 }) }, onComplete: () => { giroFeito = true } })
+      giro.fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 2, duration: 3.6, ease: 'power2.out' })
+        .fromTo(frente, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: 'power1.out' }, 2.8)
         .to({}, { duration: 3 })
       const gatilhoGiro = ScrollTrigger.create({
         trigger: sec,
@@ -75,24 +80,27 @@ export default function BlocoMarca() {
         pinSpacing: false,
       })
 
-      /* 3) ao rolar a página, o quadro pequeno cresce até ocupar a tela toda */
-      const zoomTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sec,
-          start: 'top top+=100vh',
-          end: 'bottom bottom',
-          scrub: 0.8,
-          invalidateOnRefresh: true,
-        },
-      })
+      /* 3) ao rolar a página (depois do giro), o quadro pequeno cresce a partir do seu lugar no texto
+            até ocupar a tela toda, e só então aparecem as perguntas */
+      const zoomTl = gsap.timeline({ paused: true })
       zoomTl.fromTo(zoom,
         { autoAlpha: 0, clipPath: insetDoMini },
         { autoAlpha: 1, clipPath: 'inset(0px 0px 0px 0px)', ease: 'none', duration: 1 })
         .fromTo(sec.querySelectorAll('.bm-faq-item'),
           { opacity: 0, y: 18 },
           { opacity: 1, y: 0, stagger: 0.08, ease: 'none', duration: 0.6 }, 0.55)
+      const zoomGatilho = ScrollTrigger.create({
+        trigger: sec,
+        start: 'top top+=100vh',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const alvo = giroFeito ? self.progress : 0
+          gsap.to(zoomTl, { progress: alvo, duration: 0.45, ease: 'power2.out', overwrite: true })
+        },
+        onLeaveBack: () => gsap.to(zoomTl, { progress: 0, duration: 0.3, overwrite: true }),
+      })
 
-      return () => { gatilhoGiro.kill(); fixa.kill(); zoomTl.kill() }
+      return () => { gatilhoGiro.kill(); fixa.kill(); zoomGatilho.kill(); zoomTl.kill() }
     }, sec)
 
     return () => ctx.revert()
