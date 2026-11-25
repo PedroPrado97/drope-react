@@ -1480,3 +1480,9 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
   .bm-faq-q{font-size:clamp(15px,4vw,19px)}
   .bm-faq-item:hover .bm-faq-q{font-size:clamp(17px,4.4vw,22px)}
 }
+
+/* Faces do prisma coladas (sem frestas) */
+.bm-face{margin:0}
+/* Barra inferior: levemente transparente; sólida ao passar o mouse */
+.dock{background:rgba(109,194,73,.82) !important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:background .35s ease,transform .6s,opacity .4s}
+.dock:hover{background:#6DC249 !important}
