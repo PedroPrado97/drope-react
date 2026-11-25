@@ -1370,3 +1370,15 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .ip{position:relative;width:100%;height:min(92vh,820px);overflow:hidden}
 .ip canvas{display:block;width:100%;height:100%;outline:none}
 @media (max-width:900px){ .ip{height:min(78vh,640px)} }
+
+/* Sobre o Drope: iPhone à esquerda; título verde acima do texto, à direita */
+.sb{align-items:center}
+.sb-left{position:relative;min-height:70vh;display:flex;align-items:center;justify-content:center}
+.sb-left .ip{height:min(78vh,720px)}
+.sb-right{align-self:center}
+.sb-title{color:#6DC249 !important;background:none !important;font-size:var(--titulo) !important;font-weight:800 !important;line-height:1 !important;letter-spacing:-.03em !important;margin-bottom:clamp(20px,4vh,36px)}
+@media (max-width:900px){ .sb-left{min-height:60vh} }
+
+/* Legenda abaixo do iPhone na seção Sobre */
+.ip-legenda{position:absolute;left:0;right:0;bottom:0;margin:0;font-size:15px;line-height:1.5;color:#d6dcd8;text-align:center;max-width:420px;margin-inline:auto}
+.ip-legenda strong{color:#fff;font-weight:700}
