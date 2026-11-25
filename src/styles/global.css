@@ -1374,7 +1374,7 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Sobre o Drope: iPhone à esquerda; título verde acima do texto, à direita */
 .sb{align-items:center}
 .sb-left{position:relative;min-height:70vh;display:flex;align-items:center;justify-content:center}
-.sb-left .ip{height:min(78vh,720px)}
+.sb-left .ip{height:min(96vh,900px)}
 .sb-right{align-self:center}
 .sb-title{color:#6DC249 !important;background:none !important;font-size:var(--titulo) !important;font-weight:800 !important;line-height:1 !important;letter-spacing:-.03em !important;margin-bottom:clamp(20px,4vh,36px)}
 @media (max-width:900px){ .sb-left{min-height:60vh} }
@@ -1382,3 +1382,24 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Legenda abaixo do iPhone na seção Sobre */
 .ip-legenda{position:absolute;left:0;right:0;bottom:0;margin:0;font-size:15px;line-height:1.5;color:#d6dcd8;text-align:center;max-width:420px;margin-inline:auto}
 .ip-legenda strong{color:#fff;font-weight:700}
+
+/* Celular da seção Sobre: maior que o bloco de texto */
+.sb-left{min-height:min(96vh,900px)}
+@media (max-width:900px){ .sb-left .ip{height:min(70vh,640px)} .sb-left{min-height:min(70vh,640px)} }
+
+/* ===== Ajustes de celular ===== */
+@media (max-width:900px){
+  /* marcas: nomes inteiros, quebrando só entre palavras (sem hífen) */
+  .mq-item{width:140px !important;min-width:140px}
+  .mq-nome{font-size:10px !important;max-width:140px !important;white-space:normal !important;word-break:normal !important;overflow-wrap:normal !important;hyphens:none !important;letter-spacing:.03em !important;line-height:1.25 !important;overflow:visible !important;text-overflow:clip !important}
+
+  /* Nossos valores: afastado da borda da seção */
+  .vc-head{margin:96px 24px 0 !important;padding:0 !important}
+  .vc-conteudo{padding-bottom:160px !important}
+
+  /* Sobre o Drope: uma coluna, celular acima do texto */
+  .sb{grid-template-columns:1fr !important;padding:96px 24px 120px !important;gap:48px !important}
+  .sb-left{min-height:auto !important}
+  .sb-left .ip{height:min(70vh,560px) !important}
+  .sb-right{align-self:stretch !important}
+}
