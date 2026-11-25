@@ -9,6 +9,9 @@ gsap.registerPlugin(ScrollTrigger)
    (com a frase) voltada para o público e espera 3 s.
    Depois, ao rolar, a pequena imagem ao lado de "algo" se expande, suavemente e de forma
    reversível, até ocupar a tela toda. Sobre ela aparecem as dúvidas frequentes. */
+/* Imagem que fica ao lado de "algo" e se expande até a tela inteira */
+const FOTO_EXPANSAO = '/media/bloco/drope-1.webp'
+
 const LATERAIS = [
   '/media/bloco/la-frontera.webp',
   '/media/bloco/eu-amo-volei.webp',
@@ -56,23 +59,7 @@ export default function BlocoMarca() {
       const faqWrap = sec.querySelector('.bm-faq-wrap')
       const itens = sec.querySelectorAll('.bm-faq-item')
 
-      /* 1) giro automático ao chegar: duas voltas, desacelera, para com a frente e espera 3 s */
-      let giroFeito = false
-      const giro = gsap.timeline({
-        paused: true,
-        onStart: () => { giroFeito = false },
-        onComplete: () => { giroFeito = true },
-      })
-      giro.fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 2, duration: 3.6, ease: 'power2.out' })
-        .to({}, { duration: 3 })
-      const gatilhoGiro = ScrollTrigger.create({
-        trigger: sec,
-        start: 'top top',
-        onEnter: () => giro.restart(),
-        onLeaveBack: () => giro.pause(0),
-      })
-
-      /* 3) expansão a partir da imagem pequena até a tela inteira, proporcional ao scroll */
+      /* expansão da imagem pequena (ao lado de "algo") até a tela inteira */
       const estado = { p: 0 }
       const desenhar = (p) => {
         const r = mini.getBoundingClientRect()
@@ -86,23 +73,33 @@ export default function BlocoMarca() {
           borderRadius: lerp(4, 0, e),
           autoAlpha: p > 0 ? 1 : 0,
         })
-        gsap.set(faqWrap, { autoAlpha: clamp((p - 0.75) / 0.25) })
-        gsap.set(itens, { opacity: clamp((p - 0.85) / 0.15) })
+        gsap.set(faqWrap, { autoAlpha: clamp((p - 0.85) / 0.15) })
       }
       desenhar(0)
+      gsap.set(itens, { opacity: 0 })
 
-      const expansao = ScrollTrigger.create({
+      /* sequência automática: a roleta gira e para; 2 s depois a imagem se expande
+         até ocupar a tela e, em seguida, aparecem as dúvidas frequentes */
+      const sequencia = gsap.timeline({ paused: true })
+      sequencia
+        .fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 2, duration: 3.6, ease: 'power2.out' })
+        .to({}, { duration: 2 })
+        .to(estado, { p: 1, duration: 1.2, ease: 'power2.inOut', onUpdate: () => desenhar(estado.p) })
+        .fromTo(itens, { opacity: 0, y: 18 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.6 }, '-=0.2')
+
+      const gatilho = ScrollTrigger.create({
         trigger: sec,
-        start: 'top top+=100vh',
-        end: 'bottom bottom',
-        onUpdate: (self) => {
-          const alvo = giroFeito ? self.progress : 0
-          gsap.to(estado, { p: alvo, duration: 0.4, ease: 'power2.out', overwrite: true, onUpdate: () => desenhar(estado.p) })
+        start: 'top top',
+        onEnter: () => sequencia.restart(),
+        onLeaveBack: () => {
+          sequencia.pause(0)
+          estado.p = 0
+          desenhar(0)
+          gsap.set(itens, { opacity: 0 })
         },
-        onLeaveBack: () => gsap.to(estado, { p: 0, duration: 0.3, overwrite: true, onUpdate: () => desenhar(estado.p) }),
       })
 
-      return () => { gatilhoGiro.kill(); expansao.kill(); giro.kill() }
+      return () => { gatilho.kill(); sequencia.kill() }
     }, sec)
 
     return () => ctx.revert()
@@ -116,7 +113,7 @@ export default function BlocoMarca() {
             <div className="bm-face bm-frente" style={estiloCentro(0)}>
               <p>
                 {t('Toda marca tem algo')}{' '}
-                <span className="bm-mini"><img src={LATERAIS[0]} alt="" /></span>{' '}
+                <span className="bm-mini"><img src={FOTO_EXPANSAO} alt="" /></span>{' '}
                 {t('a dizer. Vamos descobrir o que é?')}
               </p>
             </div>
@@ -130,7 +127,7 @@ export default function BlocoMarca() {
           </div>
         </div>
 
-        <div className="bm-expand" aria-hidden="true" style={{ backgroundImage: `url(${LATERAIS[0]})` }}>
+        <div className="bm-expand" aria-hidden="true" style={{ backgroundImage: `url(${FOTO_EXPANSAO})` }}>
           <div className="bm-expand-veu" />
         </div>
 
