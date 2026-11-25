@@ -85,6 +85,7 @@ export default function BlocoMarca() {
           autoAlpha: p > 0 ? 1 : 0,
         })
         gsap.set(faqWrap, { autoAlpha: clamp((p - 0.7) / 0.3) })
+        gsap.set(cubo.parentNode, { autoAlpha: 1 - clamp((p - 0.4) / 0.3) })
         gsap.set(itens, { opacity: clamp((p - 0.8) / 0.2), y: (1 - clamp((p - 0.8) / 0.2)) * 18 })
       }
       desenhar(0)

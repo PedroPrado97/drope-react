@@ -1407,7 +1407,7 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Celular: sem faixa escura entre Processo e Nossos valores; o título entra direto no capítulo */
 @media (max-width:900px){
   .vc,.vc-stage{background:transparent !important}
-  .vc-head{margin:0 !important;padding:72px 24px 32px !important;background:#12312C !important}
+  .vc-head{margin:0 !important;padding:72px 24px 32px !important;background:transparent !important;position:relative;overflow:hidden}
 }
 
 /* ===== Bloco 3D "Toda marca tem algo a dizer" ===== */
@@ -1525,4 +1525,25 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 @media (max-width:900px){
   .bm-faq-lista{grid-template-columns:1fr;grid-template-rows:none;grid-auto-rows:auto;overflow:auto}
   .bm-faq-item{padding:16px 12px}
+}
+
+/* Título dos valores: fundo animado (mesmo vídeo do capítulo Curiosidade) */
+.vc-head-bg{display:none}
+@media (max-width:900px){
+  .vc-head-bg{display:block;position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .vc-head-bg video{width:100%;height:100%;object-fit:cover;display:block}
+  .vc-head-bg::after{content:"";position:absolute;inset:0;background:rgba(10,20,17,.28)}
+  .vc-kicker{position:relative;z-index:1}
+}
+
+/* Perguntas frequentes no celular: tudo cabe na tela sem rolagem interna, então a página volta a rolar normalmente */
+@media (max-width:900px){
+  .bm-faq-wrap{overflow:hidden;touch-action:pan-y}
+  .bm-faq{padding:64px 20px 20px;box-sizing:border-box;height:100%}
+  .bm-faq-titulo{font-size:clamp(26px,8vw,36px);margin-bottom:12px}
+  .bm-faq-lista{grid-template-columns:1fr !important;grid-template-rows:none !important;grid-auto-rows:minmax(0,1fr);overflow:hidden;flex:1 1 auto;border:0}
+  .bm-faq-item{padding:8px 0;gap:3px;border-left:0 !important;border-right:0 !important;border-bottom:1px solid rgba(243,247,242,.18) !important;justify-content:center;overflow:hidden}
+  .bm-faq-q{font-size:13.5px;line-height:1.22;font-weight:700}
+  .bm-faq-item:hover .bm-faq-q,.bm-faq-item:focus-visible .bm-faq-q{font-size:13.5px}
+  .bm-faq-a span{font-size:11.5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 }

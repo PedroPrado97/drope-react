@@ -93,6 +93,9 @@ export default function Valores() {
     <section ref={secRef} className="vc" id="valores" aria-label={t('Nossos valores')}>
       <div className="vc-stage">
         <header className="vc-head">
+          <div className="vc-head-bg" aria-hidden="true">
+            <video src={VALORES[0].video} poster={VALORES[0].poster} autoPlay muted loop playsInline preload="auto" />
+          </div>
           <h2 className="vc-kicker">{t('Nossos valores')}</h2>
         </header>
 
