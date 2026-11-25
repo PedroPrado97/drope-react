@@ -1342,3 +1342,10 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .vc-static .vc-prog{display:none}
 .vc-static .vc-head{position:relative;top:auto;left:auto;padding:90px 24px 0}
 
+
+/* ===== Valores: vídeo de fundo em cada capítulo ===== */
+.vc-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.vc-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateZ(0);backface-visibility:hidden}
+.vc-bg::after{content:"";position:absolute;inset:0;background:rgba(10,20,17,.28)}
+.vc-conteudo{z-index:1}
+@media (max-width:900px){ .vc-bg{position:absolute} }

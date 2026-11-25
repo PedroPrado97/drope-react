@@ -18,7 +18,11 @@ export default function Valores() {
     const sec = secRef.current
     if (!sec) return
     const reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduzir) { sec.classList.add('vc-static'); return }
+    if (reduzir) {
+      sec.classList.add('vc-static')
+      sec.querySelectorAll('video').forEach((v) => v.pause())
+      return
+    }
 
     const mm = gsap.matchMedia()
     const ctx = gsap.context(() => {
@@ -94,6 +98,18 @@ export default function Valores() {
 
         {VALORES.map((v) => (
           <article key={v.n} className="vc-cap" style={{ '--cap-bg': v.fundo, '--cap-fg': v.texto }}>
+            <div className="vc-bg" aria-hidden="true">
+              <video
+                className="vc-video"
+                src={v.video}
+                poster={v.poster}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              />
+            </div>
             <div className="vc-conteudo">
               <div className="vc-texto-col">
                 <div className="vc-mask">
