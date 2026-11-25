@@ -1501,3 +1501,13 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Bloco: a tela fica fixa e centralizada enquanto a seção rola (sticky, sem pin do GSAP) */
 .bm{height:300vh;position:relative}
 .bm-stage{position:sticky !important;top:0;height:100vh;height:100svh;overflow:hidden}
+
+/* Bloco maior e sempre centralizado quando a tela trava */
+.bm-stage{--s:min(58vw,760px);--h:min(40vw,420px);display:flex;align-items:center;justify-content:center}
+.bm-cena{left:50%;top:50%}
+@media (max-width:900px){ .bm-stage{--s:min(78vw,380px);--h:min(54vw,240px)} }
+
+/* Centralização robusta do cubo: contêiner de tamanho zero centralizado pelo próprio palco */
+.bm{margin:0 !important;padding:0 !important}
+.bm-stage{height:100vh !important;height:100dvh !important;min-height:0 !important}
+.bm-cena{position:absolute !important;top:0 !important;bottom:0 !important;left:0 !important;right:0 !important;margin:auto !important;width:0 !important;height:0 !important}

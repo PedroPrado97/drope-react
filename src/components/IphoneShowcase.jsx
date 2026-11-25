@@ -53,7 +53,7 @@ export default function IphoneShowcase() {
       scene.add(luzContra)
 
       /* ---------- geometria do aparelho ---------- */
-      const H = 15.2, W = H * (379 / 787), R = 2.1, D = 0.62, BV = 0.12
+      const H = 15.2, W = H * (379 / 787), R = 0.7, D = 0.62, BV = 0.12
       const F = (D + 2 * BV) / 2 // z da face frontal
       const retangulo = (w, h, r) => {
         const s = new THREE.Shape()
@@ -147,7 +147,7 @@ export default function IphoneShowcase() {
       const desenharTela = () => {
         ctx.save()
         ctx.beginPath()
-        const r = 96
+        const r = 50
         ctx.moveTo(r, 0); ctx.arcTo(TW, 0, TW, TH, r); ctx.arcTo(TW, TH, 0, TH, r)
         ctx.arcTo(0, TH, 0, 0, r); ctx.arcTo(0, 0, TW, 0, r); ctx.closePath()
         ctx.clip()
