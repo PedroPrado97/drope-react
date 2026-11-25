@@ -5,9 +5,10 @@ import { useIdioma } from '../context/Idioma.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/* Prisma de 6 faces iguais. Ao entrar na seção gira sozinho, para com a frente verde,
-   espera 3 segundos. Depois, ao rolar a página, o quadro pequeno cresce até ocupar a tela
-   e mostra as dúvidas frequentes. */
+/* Prisma hexagonal (6 faces iguais). Gira sozinho ao chegar na seção, para com a frente
+   (com a frase) voltada para o público e espera 3 s.
+   Depois, ao rolar, a pequena imagem ao lado de "algo" se expande, suavemente e de forma
+   reversível, até ocupar a tela toda. Sobre ela aparecem as dúvidas frequentes. */
 const LATERAIS = [
   '/media/bloco/la-frontera.webp',
   '/media/bloco/eu-amo-volei.webp',
@@ -25,8 +26,12 @@ const FAQ = [
   { p: 'Vocês fazem aplicações além do logotipo?', r: 'Sim: uniformes, embalagens, sinalização, papelaria, cardápios e peças para redes sociais, sempre com a identidade da marca.' },
 ]
 
-/* Prisma hexagonal com eixo horizontal (X). Cada face tem altura h (lado do hexágono) e a distância
-   até o eixo é h·√3/2 (apótema). Assim as seis faces ficam coladas, do mesmo tamanho. */
+const lerp = (a, b, t) => a + (b - a) * t
+const clamp = (v) => Math.min(1, Math.max(0, v))
+const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+
+/* Cada face é centralizada pela margem e depois girada em torno do centro do prisma (eixo X).
+   A distância até o eixo é h·√3/2, então as seis faces ficam coladas. */
 const estiloCentro = (grau) => ({
   width: 'var(--s)',
   height: 'var(--h)',
@@ -47,22 +52,18 @@ export default function BlocoMarca() {
     const ctx = gsap.context(() => {
       const cubo = sec.querySelector('.bm-cubo')
       const mini = sec.querySelector('.bm-mini')
-      const zoom = sec.querySelector('.bm-zoom')
+      const expand = sec.querySelector('.bm-expand')
+      const faqWrap = sec.querySelector('.bm-faq-wrap')
+      const itens = sec.querySelectorAll('.bm-faq-item')
 
-      const insetDoMini = () => {
-        const r = mini.getBoundingClientRect()
-        const W = window.innerWidth, H = window.innerHeight
-        return `inset(${r.top}px ${W - r.right}px ${H - r.bottom}px ${r.left}px)`
-      }
-
-      /* 1) giro automático do prisma ao entrar na seção: 3 voltas, desacelera, para na frente e espera 3 s */
-      /* durante o giro só aparecem as faces laterais (cilindro hexagonal); a frente verde surge ao parar */
-      const frente = sec.querySelector('.bm-frente')
-      gsap.set(frente, { autoAlpha: 0 })
+      /* 1) giro automático ao chegar: duas voltas, desacelera, para com a frente e espera 3 s */
       let giroFeito = false
-      const giro = gsap.timeline({ paused: true, onStart: () => { giroFeito = false; gsap.set(frente, { autoAlpha: 0 }) }, onComplete: () => { giroFeito = true } })
+      const giro = gsap.timeline({
+        paused: true,
+        onStart: () => { giroFeito = false },
+        onComplete: () => { giroFeito = true },
+      })
       giro.fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 2, duration: 3.6, ease: 'power2.out' })
-        .fromTo(frente, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: 'power1.out' }, 2.8)
         .to({}, { duration: 3 })
       const gatilhoGiro = ScrollTrigger.create({
         trigger: sec,
@@ -80,27 +81,37 @@ export default function BlocoMarca() {
         pinSpacing: false,
       })
 
-      /* 3) ao rolar a página (depois do giro), o quadro pequeno cresce a partir do seu lugar no texto
-            até ocupar a tela toda, e só então aparecem as perguntas */
-      const zoomTl = gsap.timeline({ paused: true })
-      zoomTl.fromTo(zoom,
-        { autoAlpha: 0, clipPath: insetDoMini },
-        { autoAlpha: 1, clipPath: 'inset(0px 0px 0px 0px)', ease: 'none', duration: 1 })
-        .fromTo(sec.querySelectorAll('.bm-faq-item'),
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, stagger: 0.08, ease: 'none', duration: 0.6 }, 0.55)
-      const zoomGatilho = ScrollTrigger.create({
+      /* 3) expansão a partir da imagem pequena até a tela inteira, proporcional ao scroll */
+      const estado = { p: 0 }
+      const desenhar = (p) => {
+        const r = mini.getBoundingClientRect()
+        const W = window.innerWidth, H = window.innerHeight
+        const e = easeInOut(p)
+        gsap.set(expand, {
+          left: lerp(r.left, 0, e),
+          top: lerp(r.top, 0, e),
+          width: lerp(r.width, W, e),
+          height: lerp(r.height, H, e),
+          borderRadius: lerp(4, 0, e),
+          autoAlpha: p > 0 ? 1 : 0,
+        })
+        gsap.set(faqWrap, { autoAlpha: clamp((p - 0.75) / 0.25) })
+        gsap.set(itens, { opacity: clamp((p - 0.85) / 0.15) })
+      }
+      desenhar(0)
+
+      const expansao = ScrollTrigger.create({
         trigger: sec,
         start: 'top top+=100vh',
         end: 'bottom bottom',
         onUpdate: (self) => {
           const alvo = giroFeito ? self.progress : 0
-          gsap.to(zoomTl, { progress: alvo, duration: 0.45, ease: 'power2.out', overwrite: true })
+          gsap.to(estado, { p: alvo, duration: 0.4, ease: 'power2.out', overwrite: true, onUpdate: () => desenhar(estado.p) })
         },
-        onLeaveBack: () => gsap.to(zoomTl, { progress: 0, duration: 0.3, overwrite: true }),
+        onLeaveBack: () => gsap.to(estado, { p: 0, duration: 0.3, overwrite: true, onUpdate: () => desenhar(estado.p) }),
       })
 
-      return () => { gatilhoGiro.kill(); fixa.kill(); zoomGatilho.kill(); zoomTl.kill() }
+      return () => { gatilhoGiro.kill(); fixa.kill(); expansao.kill(); giro.kill() }
     }, sec)
 
     return () => ctx.revert()
@@ -128,8 +139,11 @@ export default function BlocoMarca() {
           </div>
         </div>
 
-        <div className="bm-zoom">
-          <img className="bm-zoom-fundo" src={LATERAIS[0]} alt="" aria-hidden="true" />
+        <div className="bm-expand" aria-hidden="true" style={{ backgroundImage: `url(${LATERAIS[0]})` }}>
+          <div className="bm-expand-veu" />
+        </div>
+
+        <div className="bm-faq-wrap">
           <div className="bm-faq">
             <h3 className="bm-faq-titulo">{t('Dúvidas frequentes')}</h3>
             <ul className="bm-faq-lista">

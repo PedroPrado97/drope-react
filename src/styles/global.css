@@ -1462,8 +1462,6 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* ===== Zoom do bloco: tela de dúvidas frequentes ===== */
 .bm{height:300vh}
 .bm-stage{height:100vh;height:100svh}
-.bm-zoom{visibility:hidden;background:#12312C;align-items:stretch;justify-content:stretch;padding:0;gap:0}
-.bm-zoom-fundo{opacity:.12 !important;filter:saturate(.6)}
 .bm-faq{position:relative;z-index:1;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,6vh,80px) clamp(24px,6vw,120px);box-sizing:border-box}
 .bm-faq-titulo{margin:0 0 clamp(16px,3vh,36px);font-size:var(--titulo);font-weight:800;letter-spacing:-.03em;line-height:1;color:#6DC249;text-transform:uppercase}
 .bm-faq-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(6px,1.4vh,14px)}
@@ -1490,3 +1488,12 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Barra inferior bem transparente; sólida só ao passar o mouse */
 .dock{background:rgba(109,194,73,.42) !important;border:1px solid rgba(190,240,170,.35);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2)}
 .dock:hover{background:#6DC249 !important}
+
+/* Barra inferior recolhe ao rolar para baixo, para não atrapalhar a leitura */
+.dock.on.recolhido{transform:translate(-50%,220%);opacity:0;pointer-events:none}
+
+/* ===== Expansão da imagem do bloco até a tela inteira ===== */
+.bm-expand{position:fixed;z-index:9400;visibility:hidden;opacity:1;background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden;pointer-events:none;will-change:left,top,width,height}
+.bm-expand-veu{position:absolute;inset:0;background:rgba(18,49,44,.82)}
+.bm-faq-wrap{position:fixed;inset:0;z-index:9500;visibility:visible;pointer-events:auto;opacity:0;overflow:auto}
+.bm-faq-wrap .bm-faq{position:relative;min-height:100vh;box-sizing:border-box}
