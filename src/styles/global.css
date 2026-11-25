@@ -1453,3 +1453,8 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .bm-zoom{position:absolute;inset:0;z-index:20;visibility:hidden;background:#12312C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
 .bm-zoom img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
 .bm-zoom p{position:relative;margin:0;color:#f3f7f2;font-size:clamp(28px,4vw,72px);font-weight:800;letter-spacing:-.03em}
+
+/* Faces com foto como fundo (mais estáveis durante a rotação 3D) */
+.bm-foto{background-size:cover;background-position:center;background-repeat:no-repeat;overflow:visible;backface-visibility:visible;filter:none}
+.bm-face{overflow:visible}
+.bm-frente{overflow:hidden !important}
