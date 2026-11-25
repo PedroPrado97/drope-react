@@ -5,9 +5,9 @@ import { useIdioma } from '../context/Idioma.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/* Prisma de 6 faces iguais (como uma roleta). Gira sozinho ao entrar na seção,
-   desacelera, para com a frente verde voltada para o público, espera 3 segundos
-   e então o quadro pequeno cresce até ocupar a tela. */
+/* Prisma de 6 faces iguais. Ao entrar na seção gira sozinho, para com a frente verde,
+   espera 3 segundos. Depois, ao rolar a página, o quadro pequeno cresce até ocupar a tela
+   e mostra as dúvidas frequentes. */
 const LATERAIS = [
   '/media/bloco/la-frontera.webp',
   '/media/bloco/eu-amo-volei.webp',
@@ -15,8 +15,15 @@ const LATERAIS = [
   '/media/bloco/ello.webp',
   '/media/bloco/cartao.webp',
 ]
-const FACES = 6
-const PASSO = 360 / FACES
+const FAQ = [
+  { p: 'Quanto tempo leva um projeto de identidade visual?', r: 'Depende do escopo. Uma identidade completa costuma levar de 3 a 6 semanas, contando a investigação, as propostas e os ajustes.' },
+  { p: 'Como funciona o processo de criação?', r: 'Começamos por perguntas sobre o negócio, o público e o contexto. Depois, organizamos a estratégia, criamos a marca e entregamos as aplicações.' },
+  { p: 'Vocês atendem empresas de outras cidades?', r: 'Sim. Todo o processo acontece online, com reuniões, apresentações e entregas digitais, independentemente da localização.' },
+  { p: 'O que está incluso na identidade visual?', r: 'Logotipo, paleta de cores, tipografia, regras de uso e arquivos para aplicação em redes sociais, impressos e fachadas.' },
+  { p: 'Preciso já ter um logotipo para começar?', r: 'Não. Muitos projetos começam do zero. Se já existir uma marca, analisamos o que funciona e o que precisa evoluir.' },
+  { p: 'Como funciona o investimento?', r: 'Cada projeto recebe um orçamento sob medida. Trabalhamos com entrada e parcelas, e o valor fica claro antes de começar.' },
+  { p: 'Vocês fazem aplicações além do logotipo?', r: 'Sim: uniformes, embalagens, sinalização, papelaria, cardápios e peças para redes sociais, sempre com a identidade da marca.' },
+]
 
 export default function BlocoMarca() {
   const { t } = useIdioma()
@@ -38,43 +45,55 @@ export default function BlocoMarca() {
         return `inset(${r.top}px ${W - r.right}px ${H - r.bottom}px ${r.left}px)`
       }
 
-      /* 3 voltas completas (múltiplo de 60°), terminando com a face 0 (frente) */
-      const tl = gsap.timeline({ paused: true })
-      tl.fromTo(cubo,
-        { rotationX: 0 },
-        { rotationX: -360 * 3, duration: 4.2, ease: 'power3.out' })
+      /* 1) giro automático do prisma ao entrar na seção: 3 voltas, desacelera, para na frente e espera 3 s */
+      const giro = gsap.timeline({ paused: true })
+      giro.fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 3, duration: 4.2, ease: 'power3.out' })
         .to({}, { duration: 3 })
-        .fromTo(zoom,
-          { autoAlpha: 0, clipPath: insetDoMini },
-          { autoAlpha: 1, clipPath: 'inset(0px 0px 0px 0px)', duration: 1, ease: 'power3.inOut' })
-
-      const gatilho = ScrollTrigger.create({
+      const gatilhoGiro = ScrollTrigger.create({
         trigger: sec,
         start: 'top 65%',
-        onEnter: () => tl.restart(),
-        onLeaveBack: () => tl.pause(0),
+        onEnter: () => giro.restart(),
+        onLeaveBack: () => giro.pause(0),
       })
 
-      return () => gatilho.kill()
+      /* 2) a tela fica fixa enquanto a página rola */
+      const fixa = ScrollTrigger.create({
+        trigger: sec,
+        start: 'top top',
+        end: 'bottom bottom',
+        pin: '.bm-stage',
+        pinSpacing: false,
+      })
+
+      /* 3) ao rolar a página, o quadro pequeno cresce até ocupar a tela toda */
+      const zoomTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sec,
+          start: 'top top+=100vh',
+          end: 'bottom bottom',
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+        },
+      })
+      zoomTl.fromTo(zoom,
+        { autoAlpha: 0, clipPath: insetDoMini },
+        { autoAlpha: 1, clipPath: 'inset(0px 0px 0px 0px)', ease: 'none', duration: 1 })
+        .fromTo(sec.querySelectorAll('.bm-faq-item'),
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, stagger: 0.08, ease: 'none', duration: 0.6 }, 0.55)
+
+      return () => { gatilhoGiro.kill(); fixa.kill(); zoomTl.kill() }
     }, sec)
 
     return () => ctx.revert()
   }, [])
-
-  /* face 0 = frente (verde); faces 1 a 5 = trabalhos, cada uma a 60° da anterior */
-  const angulo = (i) => i * PASSO
-  const estiloFace = (i) => ({
-    width: 'var(--s)',
-    height: 'var(--h)',
-    transform: `translate(-50%, -50%) rotateX(${angulo(i)}deg) translateZ(calc(var(--s) * 0.866))`,
-  })
 
   return (
     <section ref={secRef} className="bm" id="bloco" aria-label="Toda marca tem algo a dizer">
       <div className="bm-stage">
         <div className="bm-cena">
           <div className="bm-cubo">
-            <div className="bm-face bm-frente" style={estiloFace(0)}>
+            <div className="bm-face bm-frente" style={{ transform: 'translate(-50%, -50%) rotateX(0deg) translateZ(calc(var(--s) * 0.866))' }}>
               <p>
                 {t('Toda marca tem algo')}{' '}
                 <span className="bm-mini"><img src={LATERAIS[0]} alt="" /></span>{' '}
@@ -85,17 +104,30 @@ export default function BlocoMarca() {
               <div
                 key={src}
                 className="bm-face bm-foto"
-                role="img"
-                aria-label=""
-                style={{ ...estiloFace(i + 1), backgroundImage: `url(${src})` }}
+                style={{
+                  width: 'var(--s)',
+                  height: 'var(--h)',
+                  transform: `translate(-50%, -50%) rotateX(${(i + 1) * 60}deg) translateZ(calc(var(--s) * 0.866))`,
+                  backgroundImage: `url(${src})`,
+                }}
               />
             ))}
           </div>
         </div>
 
-        <div className="bm-zoom" aria-hidden="true">
-          <img src={LATERAIS[0]} alt="" />
-          <p>{t('Próximo slide')}</p>
+        <div className="bm-zoom">
+          <img className="bm-zoom-fundo" src={LATERAIS[0]} alt="" aria-hidden="true" />
+          <div className="bm-faq">
+            <h3 className="bm-faq-titulo">{t('Dúvidas frequentes')}</h3>
+            <ul className="bm-faq-lista">
+              {FAQ.map((item) => (
+                <li key={item.p} className="bm-faq-item" tabIndex={0}>
+                  <span className="bm-faq-q">{t(item.p)}</span>
+                  <span className="bm-faq-a"><span>{t(item.r)}</span></span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
