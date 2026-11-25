@@ -25,6 +25,16 @@ const FAQ = [
   { p: 'Vocês fazem aplicações além do logotipo?', r: 'Sim: uniformes, embalagens, sinalização, papelaria, cardápios e peças para redes sociais, sempre com a identidade da marca.' },
 ]
 
+/* Cada face é centralizada pela margem (no próprio eixo) e depois girada em torno do centro do prisma;
+   assim as seis faces se encontram sem frestas. */
+const estiloCentro = (grau) => ({
+  width: 'var(--s)',
+  height: 'var(--h)',
+  marginLeft: 'calc(var(--s) / -2)',
+  marginTop: 'calc(var(--h) / -2)',
+  transform: `rotateX(${grau}deg) translateZ(calc(var(--s) * 0.866))`,
+})
+
 export default function BlocoMarca() {
   const { t } = useIdioma()
   const secRef = useRef(null)
@@ -93,7 +103,7 @@ export default function BlocoMarca() {
       <div className="bm-stage">
         <div className="bm-cena">
           <div className="bm-cubo">
-            <div className="bm-face bm-frente" style={{ transform: 'translate(-50%, -50%) rotateX(0deg) translateZ(calc(var(--s) * 0.866))' }}>
+            <div className="bm-face bm-frente" style={estiloCentro(0)}>
               <p>
                 {t('Toda marca tem algo')}{' '}
                 <span className="bm-mini"><img src={LATERAIS[0]} alt="" /></span>{' '}
@@ -104,12 +114,7 @@ export default function BlocoMarca() {
               <div
                 key={src}
                 className="bm-face bm-foto"
-                style={{
-                  width: 'var(--s)',
-                  height: 'var(--h)',
-                  transform: `translate(-50%, -50%) rotateX(${(i + 1) * 60}deg) translateZ(calc(var(--s) * 0.866))`,
-                  backgroundImage: `url(${src})`,
-                }}
+                style={{ ...estiloCentro((i + 1) * 60), backgroundImage: `url(${src})` }}
               />
             ))}
           </div>
