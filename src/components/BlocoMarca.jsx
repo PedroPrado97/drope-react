@@ -128,7 +128,15 @@ export default function BlocoMarca() {
         },
       })
 
-      return () => { gatilho.kill(); expansao.kill(); giro.kill() }
+      /* ao sair da seção para baixo, o quadro de perguntas some (ele fica fora da seção, então não acompanha a rolagem) */
+      const sair = ScrollTrigger.create({
+        trigger: sec,
+        start: 'bottom bottom',
+        onEnter: () => gsap.set(faqWrap, { autoAlpha: 0 }),
+        onLeaveBack: () => aplicar(),
+      })
+
+      return () => { gatilho.kill(); expansao.kill(); sair.kill(); giro.kill() }
     }, sec)
 
     return () => ctx.revert()
