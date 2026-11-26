@@ -46,7 +46,7 @@ const estiloCentro = (grau) => ({
 function FaqItem({ pergunta, resposta, aberto, onAlternar }) {
   return (
     <li className={'fq-item' + (aberto ? ' aberto' : '')}>
-      <button type="button" className="fq-btn" aria-expanded={aberto} onClick={onAlternar}>
+      <button type="button" className="fq-btn" aria-expanded={aberto} onClick={onAlternar} onTouchEnd={(e) => { e.preventDefault(); onAlternar() }}>
         <span className="fq-q">{pergunta}</span>
         <span className="fq-mais" aria-hidden="true">{aberto ? '\u2212' : '+'}</span>
       </button>

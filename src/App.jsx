@@ -11,6 +11,7 @@ import Valores from './components/Valores.jsx'
 import Dock from './components/Dock.jsx'
 import Displacement from './components/Displacement.jsx'
 import BlocoMarca from './components/BlocoMarca.jsx'
+import Cta from './components/Cta.jsx'
 
 function Pagina() {
   useReveal()
@@ -26,6 +27,7 @@ function Pagina() {
         <Valores />
         <Sobre />
         <BlocoMarca />
+        <Cta />
       </main>
       <Dock />
       <Displacement />

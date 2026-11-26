@@ -53,7 +53,7 @@ export default function IphoneShowcase() {
       scene.add(luzContra)
 
       /* ---------- geometria do aparelho ---------- */
-      const H = 15.2, W = H * (379 / 787), R = 0.7, D = 0.62, BV = 0.12
+      const H = 15.2, W = H * (379 / 787), R = 1.25, D = 0.62, BV = 0.12
       const F = (D + 2 * BV) / 2 // z da face frontal
       const retangulo = (w, h, r) => {
         const s = new THREE.Shape()
