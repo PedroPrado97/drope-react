@@ -1547,3 +1547,17 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
   .bm-faq-item:hover .bm-faq-q,.bm-faq-item:focus-visible .bm-faq-q{font-size:13.5px}
   .bm-faq-a span{font-size:11.5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 }
+
+/* Dúvidas frequentes (desktop): grade 3 x 3 menor, centralizada, com respiro em volta */
+@media (min-width:901px){
+  .bm-faq-wrap{display:flex;align-items:center;justify-content:center}
+  .bm-faq{width:min(80vw,1180px);height:auto;max-height:90vh;justify-content:flex-start;padding:clamp(20px,3.5vh,40px) clamp(12px,1.6vw,24px)}
+  .bm-faq-titulo{font-size:clamp(30px,3.6vw,56px);margin:0 0 clamp(14px,2.6vh,28px)}
+  .bm-faq-lista{flex:0 0 auto;height:min(60vh,540px)}
+  .bm-faq-item{padding:clamp(10px,1.8vh,20px) clamp(12px,1.4vw,22px)}
+  .bm-faq-q{font-size:clamp(14px,1.2vw,19px)}
+  .bm-faq-a span{font-size:clamp(12px,0.95vw,15px)}
+}
+
+/* Seção da roleta: fundo branco */
+.bm,.bm-stage{background:#ffffff !important}
