@@ -120,8 +120,8 @@ export default function IphoneShowcase() {
       const ctx = canvas.getContext('2d')
       const tela = new THREE.CanvasTexture(canvas)
       tela.colorSpace = THREE.SRGBColorSpace
-      const sw = W - 0.42, sh = H - 0.42
-      const telaGeo = new THREE.ShapeGeometry(retangulo(sw, sh, R - 0.21), 24)
+      const sw = W - 0.16, sh = H - 0.16
+      const telaGeo = new THREE.ShapeGeometry(retangulo(sw, sh, R - 0.08), 24)
       const telaPos = telaGeo.attributes.position
       const telaUv = telaGeo.attributes.uv
       for (let i = 0; i < telaPos.count; i++) telaUv.setXY(i, (telaPos.getX(i) + sw / 2) / sw, (telaPos.getY(i) + sh / 2) / sh)
@@ -140,14 +140,14 @@ export default function IphoneShowcase() {
         const esc = Math.max(TW / img.naturalWidth, TH / img.naturalHeight)
         const w = img.naturalWidth * esc, h = img.naturalHeight * esc
         ctx.globalAlpha = alfa
-        ctx.drawImage(img, (TW - w) / 2 + dx, (TH - h) / 2, w, h)
+        ctx.drawImage(img, (TW - w) / 2 + dx, h > TH ? 0 : (TH - h) / 2, w, h)
         ctx.globalAlpha = 1
       }
       let idx = 0, prox = 1 % Math.max(1, SLIDES.length), k = 0, ultimaTroca = performance.now(), emTransicao = false, inicioTransicao = 0
       const desenharTela = () => {
         ctx.save()
         ctx.beginPath()
-        const r = 50
+        const r = 44
         ctx.moveTo(r, 0); ctx.arcTo(TW, 0, TW, TH, r); ctx.arcTo(TW, TH, 0, TH, r)
         ctx.arcTo(0, TH, 0, 0, r); ctx.arcTo(0, 0, TW, 0, r); ctx.closePath()
         ctx.clip()
