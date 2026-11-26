@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useIdioma } from '../context/Idioma.jsx'
@@ -22,13 +22,10 @@ const LATERAIS = [
 const FAQ = [
   { p: "Quanto tempo leva um projeto de identidade visual?", r: "Depende da complexidade e do escopo. Após entender suas necessidades, apresentamos um cronograma com os prazos de cada etapa." },
   { p: "Como funciona o processo de criação?", r: "Nosso processo acontece em cinco movimentos: Perguntar, Entender, Organizar, Encontrar e Traduzir. Investigamos o negócio antes de transformar suas particularidades em uma identidade visual." },
-  { p: "Vocês atendem empresas de outras cidades?", r: "Sim! Atendemos em todo o Brasil, com reuniões e acompanhamento online." },
   { p: "O que está incluso na identidade visual?", r: "Pode incluir logotipo e variações, símbolo, cores, tipografia, elementos gráficos e diretrizes de aplicação. O escopo é definido conforme cada projeto." },
   { p: "Preciso já ter um logotipo para começar?", r: "Não! Podemos construir sua marca do zero ou desenvolver uma identidade a partir do que você já possui." },
   { p: "Como funciona o investimento?", r: "O valor depende das necessidades e do escopo do projeto. Após uma conversa inicial, apresentamos uma proposta personalizada com valores e condições de pagamento." },
   { p: "Vocês fazem aplicações além do logotipo?", r: "Sim! Criamos aplicações para materiais gráficos, papelaria, embalagens, peças digitais e outros pontos de contato da marca." },
-  { p: "O Drope também trabalha com estratégia de marca?", r: "Sim! Investigamos o negócio e seu posicionamento para encontrar o que o torna único e transformar isso em uma marca coerente." },
-  { p: "A impressão dos materiais está incluída no projeto?", r: "Não. Entregamos os arquivos digitais prontos para produção. Os custos de impressão e fabricação são contratados separadamente." },
 ]
 
 const lerp = (a, b, t) => a + (b - a) * t
@@ -45,9 +42,23 @@ const estiloCentro = (grau) => ({
   transform: `rotateX(${grau}deg) translateZ(calc(var(--h) * 0.866))`,
 })
 
+/* Pergunta em acordeão: abre ao clicar no +; ao passar o mouse, o quadro se pinta em degradê verde */
+function FaqItem({ pergunta, resposta, aberto, onAlternar }) {
+  return (
+    <li className={'fq-item' + (aberto ? ' aberto' : '')}>
+      <button type="button" className="fq-btn" aria-expanded={aberto} onClick={onAlternar}>
+        <span className="fq-q">{pergunta}</span>
+        <span className="fq-mais" aria-hidden="true">{aberto ? '\u2212' : '+'}</span>
+      </button>
+      <div className="fq-resp"><div><p>{resposta}</p></div></div>
+    </li>
+  )
+}
+
 export default function BlocoMarca() {
   const { t } = useIdioma()
   const secRef = useRef(null)
+  const [aberta, setAberta] = useState(-1)
 
   useEffect(() => {
     const sec = secRef.current
@@ -150,12 +161,15 @@ export default function BlocoMarca() {
         <div className="bm-faq-wrap">
           <div className="bm-faq">
             <h3 className="bm-faq-titulo">{t('Dúvidas frequentes')}</h3>
-            <ul className="bm-faq-lista">
-              {FAQ.map((item) => (
-                <li key={item.p} className="bm-faq-item" tabIndex={0}>
-                  <span className="bm-faq-q">{t(item.p)}</span>
-                  <span className="bm-faq-a"><span>{t(item.r)}</span></span>
-                </li>
+            <ul className="fq-lista">
+              {FAQ.map((item, i) => (
+                <FaqItem
+                  key={item.p}
+                  pergunta={t(item.p)}
+                  resposta={t(item.r)}
+                  aberto={aberta === i}
+                  onAlternar={() => setAberta(aberta === i ? -1 : i)}
+                />
               ))}
             </ul>
           </div>

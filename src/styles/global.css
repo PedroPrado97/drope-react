@@ -1561,3 +1561,24 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 
 /* Seção da roleta: fundo branco */
 .bm,.bm-stage{background:#ffffff !important}
+
+/* ===== Dúvidas frequentes (versão acordeão, fundo branco) ===== */
+.bm-faq-wrap{background:#ffffff !important;display:flex;align-items:center;justify-content:center;overflow:auto}
+.bm-faq-wrap .bm-faq{width:min(78vw,860px);height:auto;max-height:none;padding:clamp(40px,8vh,80px) 0;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;box-sizing:border-box}
+.bm-faq-titulo{text-align:center;font-size:clamp(30px,4vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1;text-transform:uppercase;color:#0a0a0a;margin:0 0 clamp(28px,5vh,56px)}
+.fq-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.fq-item{border:1px solid #0a0a0a;background:#ffffff;color:#0a0a0a;overflow:hidden;transition:border-color .3s ease}
+.fq-btn{position:relative;width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:clamp(16px,2.4vh,22px) clamp(18px,2vw,26px);border:0;background:linear-gradient(90deg,#6dc249 0%,#3b903f 100%) no-repeat;background-size:0% 100%;color:#0a0a0a;font:inherit;font-size:clamp(15px,1.3vw,19px);font-weight:700;text-align:left;cursor:pointer;transition:background-size .6s cubic-bezier(.2,.7,.2,1),color .4s ease}
+.fq-btn:hover,.fq-btn:focus-visible,.fq-item.aberto .fq-btn{background-size:100% 100%;color:#ffffff;outline:none}
+.fq-q{flex:1 1 auto}
+.fq-mais{flex:0 0 auto;font-size:clamp(22px,2vw,30px);font-weight:400;line-height:1;transition:transform .4s ease}
+.fq-item.aberto .fq-mais{transform:rotate(180deg)}
+.fq-resp{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.7,.2,1)}
+.fq-item.aberto .fq-resp{grid-template-rows:1fr}
+.fq-resp>div{overflow:hidden}
+.fq-resp p{margin:0;padding:clamp(14px,2vh,20px) clamp(18px,2vw,26px) clamp(18px,2.4vh,24px);font-size:clamp(14px,1.1vw,17px);line-height:1.6;color:#0a0a0a}
+@media (max-width:900px){
+  .bm-faq-wrap .bm-faq{width:88vw;padding:72px 0 40px}
+  .fq-btn{padding:14px 14px}
+  .fq-q{font-size:14.5px}
+}
