@@ -49,7 +49,7 @@ export default function Cta() {
           <h2 className="cta-titulo">{t('Sua marca tem algo a dizer. Vamos descobrir o quê.')}</h2>
           <p className="cta-desc">{t('Conte um pouco sobre o que você está construindo. Queremos entender seu negócio antes de pensar em qualquer solução.')}</p>
           <div className="cta-box">
-            <div className="cta-box-logo" aria-hidden="true">*</div>
+            <div className="cta-box-logo" aria-hidden="true"><img src="/logo/drope-simbolo.svg" alt="" /></div>
             <div>
               <p className="cta-box-nome">Drope Studio</p>
               <p className="cta-box-sub">{t('Atendimento direto com o estúdio')}</p>

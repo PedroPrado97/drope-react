@@ -1621,3 +1621,14 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
   .cta-form{margin:0 0 12px;border-radius:0 0 18px 18px}
   .cta-linha{grid-template-columns:1fr}
 }
+
+/* CTA ocupa a tela inteira; símbolo da marca dentro do cartão */
+.cta{min-height:100vh;min-height:100svh;padding:0;display:flex;background:#000}
+.cta-card{flex:1 1 auto;max-width:none;width:100%;margin:0;border-radius:0;min-height:100vh;min-height:100svh;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.cta-form{margin:clamp(16px,3vh,40px) clamp(16px,3vw,48px);justify-content:center}
+.cta-box-logo img{width:58%;height:auto;display:block}
+@media (max-width:900px){
+  .cta-card{min-height:auto;grid-template-columns:1fr}
+  .cta{min-height:auto}
+  .cta-form{margin:0 0 12px}
+}
