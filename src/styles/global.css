@@ -1694,3 +1694,7 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 
 /* Chat flutuante no canto inferior direito */
 .chat{left:auto;right:clamp(14px,2vw,24px);align-items:flex-end}
+
+/* Quadro de perguntas começa escondido: só aparece quando a expansão chega à tela inteira.
+   Assim ele nunca cobre a página (evita travamento e sumiço das seções de baixo). */
+.bm-faq-wrap{visibility:hidden;opacity:0;pointer-events:auto}
