@@ -1718,3 +1718,13 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .hero-ed.cine .hero-side{animation-delay:2.3s}
 @media (max-width:900px){ .hero-sheen{top:6%;width:min(92vw,88vh)} }
 @media (prefers-reduced-motion:reduce){ .hero-grain,.hero-sheen{animation:none} .hero-sheen{display:none} }
+
+/* ===== Barra de rolagem com a cara do site: fina, trilho escuro e puxador verde ===== */
+/* Firefox usa as propriedades padrão; Chrome/Safari/Edge usam as ::-webkit-scrollbar abaixo */
+@supports (-moz-appearance:none){ html{scrollbar-width:thin;scrollbar-color:#6DC249 #050805} }
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#050805}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#6DC249,#3b903f);border-radius:999px;border:3px solid #050805}
+::-webkit-scrollbar-thumb:hover{background:#8be06a}
+::-webkit-scrollbar-button,::-webkit-scrollbar-button:single-button,::-webkit-scrollbar-button:vertical:decrement,::-webkit-scrollbar-button:vertical:increment{display:none;width:0;height:0;background:transparent}
+::-webkit-scrollbar-corner{background:#050805}
