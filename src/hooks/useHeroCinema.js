@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 /* Capa cinematográfica:
-   · abertura: faixas de cinema se abrem, o logo é revelado saindo do desfoque, a luz verde acende
+   · abertura: o logo se assenta como uma câmera se afastando (de grande e desfocado ao tamanho final), a luz verde acende
      e a foto sobe saindo da sombra (o título e os botões entram em seguida, pelo CSS);
    · ambiente: a luz verde "respira";
    · profundidade: logo, foto e luz se deslocam em camadas com o mouse e com a rolagem.
@@ -21,7 +21,6 @@ export default function useHeroCinema(ref) {
       const marcas = gsap.utils.toArray('.hero-mark', sec)
       const foto = sec.querySelector('.hero-photo img')
       const luz = sec.querySelector('.hero-beam')
-      const barras = gsap.utils.toArray('.hero-bar', sec)
       const palavras = gsap.utils.toArray('.hero-title .w', sec)
 
       /* o CSS centraliza logo e luz com translateX(-50%); o GSAP assume esses transforms */
@@ -31,17 +30,17 @@ export default function useHeroCinema(ref) {
       /* ---------- abertura ---------- */
       const intro = gsap.timeline({ defaults: { ease: 'expo.out' } })
       intro
-        .fromTo(barras, { scaleY: 1 }, { scaleY: 0, duration: 1.6, ease: 'expo.inOut' }, 0.15)
         .fromTo(luz, { opacity: 0, scaleY: 0.4 }, { opacity: 0.9, scaleY: 1, duration: 2.2, ease: 'power2.out' }, 0.2)
-        .fromTo(marcas, { clipPath: 'inset(0% 100% 0% 0%)', filter: 'blur(18px)', scale: 1.12, opacity: 0.4 },
-          { clipPath: 'inset(0% 0% 0% 0%)', filter: 'blur(0px)', scale: 1, opacity: 0.96, duration: 2, clearProps: 'clipPath,filter' }, 0.35)
+        /* logo: como uma câmera se afastando, começa grande, escuro e desfocado e se assenta no lugar */
+        .fromTo(marcas, { scale: 1.32, yPercent: 10, opacity: 0, filter: 'blur(16px) brightness(0.35) drop-shadow(0px 0px 0px rgba(109,194,73,0))' },
+          { scale: 1, yPercent: 0, opacity: 0.96, filter: 'blur(0px) brightness(1) drop-shadow(0px 0px 40px rgba(109,194,73,0.22))', duration: 3, ease: 'power3.out' }, 0.1)
         /* a foto começa como silhueta escura (tampando o logo) e vai sendo iluminada */
         .fromTo(foto, { scale: 1.14, yPercent: 6, filter: 'brightness(0) contrast(1.2) blur(4px)' },
           { scale: 1, yPercent: 0, filter: 'brightness(1) contrast(1) blur(0px)', duration: 2.8, ease: 'power2.inOut', clearProps: 'filter' }, 0.4)
         /* título: as palavras sobem saindo do desfoque, uma de cada vez */
         .fromTo(palavras, { opacity: 0, yPercent: 60, filter: 'blur(10px)' },
           { opacity: 1, yPercent: 0, filter: 'blur(0px)', duration: 1.1, stagger: 0.09, ease: 'power3.out', clearProps: 'opacity,transform,filter' }, 1.4)
-        .add(() => sec.classList.add('cine-pronto'), 1.9)
+        .add(() => sec.classList.add('cine-pronto'), 2.6)
 
       /* ---------- luz respirando ---------- */
       gsap.to(luz, { opacity: 0.6, x: '+=40', duration: 4.5, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2.4 })

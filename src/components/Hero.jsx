@@ -54,8 +54,6 @@ export default function Hero() {
       <img className="hero-mark" src="/images/logo-branco.webp" alt="" aria-hidden="true" />
       <div className="hero-mark hero-sheen" aria-hidden="true" />
       <div className="hero-grain" aria-hidden="true" />
-      <div className="hero-bar hero-bar-top" aria-hidden="true" />
-      <div className="hero-bar hero-bar-bottom" aria-hidden="true" />
 
       <div className="hero-grid wrap">
         <figure className="hero-photo">

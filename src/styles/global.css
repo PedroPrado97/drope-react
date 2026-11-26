@@ -1700,16 +1700,12 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .bm-faq-wrap{visibility:hidden;opacity:0;pointer-events:auto}
 
 /* ===== Capa cinematográfica (animada por useHeroCinema.js) ===== */
-/* faixas de cinema que se abrem na abertura (escondidas se a animação não rodar) */
-.hero-bar{position:absolute;left:0;right:0;height:14vh;background:#000;z-index:8;pointer-events:none;transform:scaleY(0)}
-.hero-bar-top{top:0;transform-origin:top}
-.hero-bar-bottom{bottom:0;transform-origin:bottom}
 /* brilho que percorre o logo: mesma posição e tamanho do logo, recortado pelo formato dele */
 .hero-sheen{aspect-ratio:1600/471;opacity:.96;filter:none;
   -webkit-mask:url(/images/logo-branco.webp) center/100% 100% no-repeat;mask:url(/images/logo-branco.webp) center/100% 100% no-repeat;
   background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0) 44%,rgba(190,255,160,.95) 50%,rgba(255,255,255,0) 56%,transparent 60%) 0 0/300% 100% no-repeat;
   background-position:120% 0;mix-blend-mode:screen}
-.hero-ed.cine-pronto .hero-sheen{animation:heroSheen 7s cubic-bezier(.6,0,.3,1) .4s infinite}
+.hero-ed.cine-pronto .hero-sheen{animation:heroSheen 7s cubic-bezier(.6,0,.3,1) .6s infinite}
 @keyframes heroSheen{0%{background-position:120% 0}28%{background-position:-20% 0}100%{background-position:-20% 0}}
 /* textura de filme */
 .hero-grain{position:absolute;inset:-50%;z-index:5;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
