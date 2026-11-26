@@ -89,6 +89,10 @@ export default function BlocoMarca() {
         const r = mini.getBoundingClientRect()
         const W = window.innerWidth, H = window.innerHeight
         const e = easeInOut(p)
+        /* quando a seção termina, o quadro de dúvidas e a imagem (fixos na tela) sobem junto
+           com a rolagem, revelando o formulário em vez de ficar por cima dele */
+        const saida = Math.min(0, sec.getBoundingClientRect().bottom - H)
+        gsap.set([expand, faqWrap], { y: saida })
         gsap.set(expand, {
           left: lerp(r.left, 0, e),
           top: lerp(r.top, 0, e),
@@ -128,11 +132,12 @@ export default function BlocoMarca() {
         },
       })
 
-      /* ao sair da seção para baixo, o quadro de perguntas some (ele fica fora da seção, então não acompanha a rolagem) */
+      /* depois do fim da seção, redesenha a cada rolagem para o quadro acompanhar a saída */
       const sair = ScrollTrigger.create({
         trigger: sec,
         start: 'bottom bottom',
-        onEnter: () => gsap.set(faqWrap, { autoAlpha: 0 }),
+        end: 'bottom top',
+        onUpdate: () => desenhar(estado.p),
         onLeaveBack: () => aplicar(),
       })
 
