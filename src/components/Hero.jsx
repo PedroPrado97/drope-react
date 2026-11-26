@@ -1,6 +1,7 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { useIdioma } from '../context/Idioma.jsx'
 import useHeroWords from '../hooks/useHeroWords.js'
+import useHeroCinema from '../hooks/useHeroCinema.js'
 import { TEXTOS, NOMES } from '../data/hero.js'
 import { Bandeira } from './Bandeiras.jsx'
 
@@ -8,6 +9,8 @@ export default function Hero() {
   const { idioma, setIdioma } = useIdioma()
   const t = TEXTOS[idioma] || TEXTOS['pt-BR']
   useHeroWords([idioma])
+  const ref = useRef(null)
+  useHeroCinema(ref)
 
   /* Título: uma palavra por vez, com a linha de quebra indicada por "|" */
   const linhas = useMemo(() => {
@@ -22,7 +25,7 @@ export default function Hero() {
   }, [t])
 
   return (
-    <section className="hero-ed" id="inicio" aria-label="Apresentação">
+    <section ref={ref} className="hero-ed" id="inicio" aria-label="Apresentação">
       <nav className="hero-lang" aria-label="Idioma">
         <span className="hl-ico" aria-hidden="true">
           <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -49,6 +52,10 @@ export default function Hero() {
 
       <div className="hero-beam" aria-hidden="true" />
       <img className="hero-mark" src="/images/logo-branco.webp" alt="" aria-hidden="true" />
+      <div className="hero-mark hero-sheen" aria-hidden="true" />
+      <div className="hero-grain" aria-hidden="true" />
+      <div className="hero-bar hero-bar-top" aria-hidden="true" />
+      <div className="hero-bar hero-bar-bottom" aria-hidden="true" />
 
       <div className="hero-grid wrap">
         <figure className="hero-photo">
