@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useIdioma } from '../context/Idioma.jsx'
 
-/* CTA em formulário: a pessoa responde e, ao enviar, a mensagem segue para o WhatsApp do estúdio. */
+/* CTA: formulário em duas colunas sobre o vídeo de fundo. Ao enviar, as respostas vão para o WhatsApp do estúdio. */
 const OPCOES = [
   'Criar uma marca do zero — estratégia e identidade visual para um novo negócio',
   'Transformar uma marca existente — reposicionamento ou rebranding',
@@ -11,11 +11,12 @@ const OPCOES = [
   'Ainda não sei. Preciso de orientação',
 ]
 
-const WHATSAPP = '5577999709584'
-const VAZIO = { nome: '', whatsapp: '', marca: '', cidade: '', opcao: '', sobre: '' }
+export const WHATSAPP_NUMERO = '5577999709584'
+const VAZIO = { nome: '', whatsapp: '', empresa: '', cidade: '', opcao: '', sobre: '' }
 
 export default function Cta() {
   const { t } = useIdioma()
+  const [aba, setAba] = useState('orcamento')
   const [dados, setDados] = useState(VAZIO)
   const [erro, setErro] = useState('')
 
@@ -33,70 +34,104 @@ export default function Cta() {
       '',
       `*Nome:* ${dados.nome}`,
       `*WhatsApp:* ${dados.whatsapp}`,
-      `*Marca / Empresa:* ${dados.marca || '-'}`,
+      `*Empresa:* ${dados.empresa || '-'}`,
       `*Cidade:* ${dados.cidade || '-'}`,
       `*Procura:* ${dados.opcao}`,
       `*Sobre o projeto:* ${dados.sobre || '-'}`,
     ]
-    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(linhas.join('\n'))}`, '_blank', 'noopener')
+    window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(linhas.join('\n'))}`, '_blank', 'noopener')
   }
 
   return (
-    <section className="cta" id="contato" aria-label="Vamos entender sua marca">
-      <div className="cta-card">
-        <div className="cta-info">
-          <p className="cta-kicker">{t('Vamos falar de marca')}</p>
-          <h2 className="cta-titulo">{t('Sua marca tem algo a dizer. Vamos descobrir o quê.')}</h2>
-          <p className="cta-desc">{t('Conte um pouco sobre o que você está construindo. Queremos entender seu negócio antes de pensar em qualquer solução.')}</p>
-          <div className="cta-box">
-            <div className="cta-box-logo" aria-hidden="true"><img src="/logo/drope-simbolo.svg" alt="" /></div>
-            <div>
-              <p className="cta-box-nome">Drope Studio</p>
-              <p className="cta-box-sub">{t('Atendimento direto com o estúdio')}</p>
-            </div>
-          </div>
+    <section className="ct" id="contato" aria-label="Pedir um orçamento">
+      <video className="ct-video" src="/media/cta/fundo.mp4" poster="/media/cta/fundo-poster.jpg" autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
+      <div className="ct-veu" aria-hidden="true" />
+
+      <div className="ct-wrap">
+        <div className="ct-esquerda">
+          <p className="ct-eyebrow">{t('Vamos conversar')}</p>
+          <h2 className="ct-titulo">
+            {t('Sua marca tem algo a dizer.')}{' '}
+            <span className="ct-destaque">{t('Vamos descobrir o quê.')}</span>
+          </h2>
+          <p className="ct-texto">{t('Conte um pouco do que você precisa. Queremos entender seu negócio antes de pensar em qualquer solução.')}</p>
+
+          <a className="ct-contato" href={`https://wa.me/${WHATSAPP_NUMERO}`} target="_blank" rel="noopener">
+            <span className="ct-contato-logo" aria-hidden="true"><img src="/logo/drope-simbolo.svg" alt="" /></span>
+            <span className="ct-contato-info">
+              <strong>Drope Studio</strong>
+              <small>{t('Atendimento direto com o estúdio')}</small>
+            </span>
+            <span className="ct-contato-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20z"/></svg>
+            </span>
+          </a>
         </div>
 
-        <form className="cta-form" onSubmit={enviar}>
-          <span className="cta-badge">{t('Novos projetos')}</span>
-          <h3 className="cta-form-titulo">{t('Vamos entender sua marca?')}</h3>
-          <p className="cta-form-desc">{t('Algumas informações já nos ajudam a encontrar o melhor caminho para o seu projeto.')}</p>
-
-          <label className="cta-campo">
-            <span>{t('Seu nome')}</span>
-            <input value={dados.nome} onChange={mudar('nome')} placeholder={t('Como podemos te chamar?')} />
-          </label>
-          <label className="cta-campo">
-            <span>WhatsApp</span>
-            <input value={dados.whatsapp} onChange={mudar('whatsapp')} placeholder="(00) 00000-0000" inputMode="tel" />
-          </label>
-          <div className="cta-linha">
-            <label className="cta-campo">
-              <span>{t('Marca / Empresa')}</span>
-              <input value={dados.marca} onChange={mudar('marca')} placeholder={t('Nome da marca')} />
-            </label>
-            <label className="cta-campo">
-              <span>{t('Cidade')}</span>
-              <input value={dados.cidade} onChange={mudar('cidade')} placeholder={t('Sua cidade')} />
-            </label>
+        <div className="ct-direita">
+          <div className="ct-abas" role="tablist">
+            <button type="button" role="tab" aria-selected={aba === 'orcamento'} className={'ct-aba' + (aba === 'orcamento' ? ' on' : '')} onClick={() => setAba('orcamento')}>
+              {t('Pedir orçamento')}
+            </button>
+            <button type="button" role="tab" aria-selected={aba === 'conversa'} className={'ct-aba' + (aba === 'conversa' ? ' on' : '')} onClick={() => setAba('conversa')}>
+              {t('Marcar uma conversa')}
+            </button>
           </div>
-          <label className="cta-campo">
-            <span>{t('O que você procura?')}</span>
-            <select value={dados.opcao} onChange={mudar('opcao')}>
-              <option value="">{t('Selecione uma opção')}</option>
-              {OPCOES.map((op) => (
-                <option key={op} value={op}>{t(op)}</option>
-              ))}
-            </select>
-          </label>
-          <label className="cta-campo">
-            <span>{t('Conte um pouco sobre seu projeto')}</span>
-            <textarea rows={3} value={dados.sobre} onChange={mudar('sobre')} placeholder={t('O que você está construindo ou gostaria de transformar?')} />
-          </label>
 
-          {erro && <p className="cta-erro" role="alert">{t(erro)}</p>}
-          <button type="submit" className="cta-enviar">{t('Enviar projeto ao Drope')} <span aria-hidden="true">↗</span></button>
-        </form>
+          {aba === 'orcamento' ? (
+            <form className="ct-card" onSubmit={enviar}>
+              <h3 className="ct-card-titulo">{t('Pedir um orçamento')}</h3>
+              <p className="ct-card-desc">{t('Preencha em poucas palavras o que você precisa. O estúdio responde no seu WhatsApp.')}</p>
+
+              <label className="ct-campo">
+                <span>{t('Seu nome')}</span>
+                <input value={dados.nome} onChange={mudar('nome')} />
+              </label>
+              <label className="ct-campo">
+                <span>{t('WhatsApp com DDD')}</span>
+                <input value={dados.whatsapp} onChange={mudar('whatsapp')} placeholder="(77) 99999-9999" inputMode="tel" />
+              </label>
+              <div className="ct-linha">
+                <label className="ct-campo">
+                  <span>{t('Empresa')}</span>
+                  <input value={dados.empresa} onChange={mudar('empresa')} />
+                </label>
+                <label className="ct-campo">
+                  <span>{t('Cidade')}</span>
+                  <input value={dados.cidade} onChange={mudar('cidade')} />
+                </label>
+              </div>
+              <label className="ct-campo">
+                <span>{t('O que você procura?')}</span>
+                <select value={dados.opcao} onChange={mudar('opcao')}>
+                  <option value="">{t('Escolha uma opção')}</option>
+                  {OPCOES.map((op) => (
+                    <option key={op} value={op}>{t(op)}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="ct-campo">
+                <span>{t('Conte rapidinho')} <em>({t('opcional')})</em></span>
+                <textarea rows={3} value={dados.sobre} onChange={mudar('sobre')} placeholder={t('O que você está construindo ou gostaria de transformar?')} />
+              </label>
+
+              {erro && <p className="ct-erro" role="alert">{t(erro)}</p>}
+              <button type="submit" className="ct-enviar">
+                {t('Enviar e falar com o comercial')}
+                <span className="ct-enviar-seta" aria-hidden="true">↗</span>
+              </button>
+            </form>
+          ) : (
+            <div className="ct-card ct-card-conversa">
+              <h3 className="ct-card-titulo">{t('Marcar uma conversa')}</h3>
+              <p className="ct-card-desc">{t('Prefere falar direto? Chame o estúdio no WhatsApp e escolha o melhor horário.')}</p>
+              <a className="ct-enviar" href={`https://wa.me/${WHATSAPP_NUMERO}`} target="_blank" rel="noopener">
+                {t('Falar no WhatsApp')}
+                <span className="ct-enviar-seta" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   )

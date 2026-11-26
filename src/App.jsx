@@ -12,6 +12,7 @@ import Dock from './components/Dock.jsx'
 import Displacement from './components/Displacement.jsx'
 import BlocoMarca from './components/BlocoMarca.jsx'
 import Cta from './components/Cta.jsx'
+import ChatFlutuante from './components/ChatFlutuante.jsx'
 
 function Pagina() {
   useReveal()
@@ -30,6 +31,7 @@ function Pagina() {
         <Cta />
       </main>
       <Dock />
+      <ChatFlutuante />
       <Displacement />
     </>
   )

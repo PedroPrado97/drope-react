@@ -1632,3 +1632,62 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
   .cta{min-height:auto}
   .cta-form{margin:0 0 12px}
 }
+
+/* ===== CTA: layout em duas colunas sobre vídeo animado ===== */
+.ct{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:#050805;color:#f3f7f2;display:flex;align-items:center}
+.ct-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.ct-veu{position:absolute;inset:0;z-index:1;background:rgba(5,8,5,.55)}
+.ct-wrap{position:relative;z-index:2;width:100%;max-width:1400px;margin:0 auto;padding:clamp(72px,12vh,120px) clamp(24px,6vw,100px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(40px,6vw,120px);align-items:center;box-sizing:border-box}
+.ct-eyebrow{margin:0 0 clamp(14px,2.4vh,22px);font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#c9d6cc;opacity:.8}
+.ct-titulo{margin:0;font-size:clamp(38px,5vw,76px);font-weight:700;line-height:1.02;letter-spacing:-.035em;color:#f3f7f2}
+.ct-destaque{background:linear-gradient(90deg,#6dc249 0%,#9be07a 60%,#3b903f 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ct-texto{margin:clamp(16px,2.6vh,26px) 0 0;max-width:520px;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:#d6e2d9}
+.ct-contato{margin-top:clamp(28px,4.4vh,44px);display:flex;align-items:center;gap:14px;max-width:440px;padding:14px 16px 14px 14px;border-radius:18px;background:rgba(10,18,14,.7);border:1px solid rgba(109,194,73,.35);color:#f3f7f2;text-decoration:none;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:border-color .3s ease,transform .3s ease}
+.ct-contato:hover{border-color:#6dc249;transform:translateY(-2px)}
+.ct-contato-logo{flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:#3b903f;display:flex;align-items:center;justify-content:center}
+.ct-contato-logo img{width:56%;height:auto;display:block}
+.ct-contato-info{flex:1 1 auto;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ct-contato-info strong{font-size:16px;font-weight:700}
+.ct-contato-info small{font-size:13px;color:#b8c7bc}
+.ct-contato-btn{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:#6dc249;color:#0a0a0a;display:flex;align-items:center;justify-content:center}
+.ct-direita{display:flex;flex-direction:column;gap:14px;width:100%;max-width:520px;justify-self:end}
+.ct-abas{align-self:flex-start;display:inline-flex;gap:4px;padding:5px;border-radius:999px;background:rgba(10,18,14,.7);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.ct-aba{padding:10px 18px;border:0;border-radius:999px;background:transparent;color:#c9d6cc;font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .3s ease,color .3s ease}
+.ct-aba.on{background:#ffffff;color:#0a0a0a}
+.ct-card{display:flex;flex-direction:column;gap:14px;padding:clamp(24px,3vw,34px);border-radius:24px;background:rgba(12,14,13,.82);border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(0,0,0,.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);margin:0}
+.ct-card-titulo{margin:0;font-size:clamp(22px,2.2vw,30px);font-weight:700;letter-spacing:-.02em;color:#f3f7f2}
+.ct-card-desc{margin:-6px 0 4px;font-size:14px;line-height:1.5;color:#aebcb2}
+.ct-campo{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:#e6efe8}
+.ct-campo em{font-style:normal;font-weight:400;opacity:.7}
+.ct-campo input,.ct-campo select,.ct-campo textarea{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(0,0,0,.35);color:#f3f7f2;font:inherit;font-size:14px;font-weight:400;outline:none;transition:border-color .25s ease}
+.ct-campo input::placeholder,.ct-campo textarea::placeholder{color:#6f7d75}
+.ct-campo input:focus,.ct-campo select:focus,.ct-campo textarea:focus{border-color:#6dc249}
+.ct-campo select option{background:#0c0e0d;color:#f3f7f2}
+.ct-campo textarea{resize:vertical;min-height:84px}
+.ct-linha{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ct-erro{margin:0;font-size:13px;color:#ff9a8f}
+.ct-enviar{margin-top:6px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;box-sizing:border-box;padding:8px 8px 8px 22px;border:0;border-radius:999px;background:#ffffff;color:#0a0a0a;font:inherit;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .25s ease,box-shadow .3s ease;touch-action:manipulation}
+.ct-enviar:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(109,194,73,.35)}
+.ct-enviar-seta{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:#6dc249;color:#0a0a0a;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
+@media (max-width:900px){
+  .ct{min-height:auto;align-items:stretch}
+  .ct-wrap{grid-template-columns:1fr;gap:36px;padding:96px 20px 56px}
+  .ct-direita{justify-self:stretch;max-width:none}
+  .ct-linha{grid-template-columns:1fr}
+}
+
+/* ===== Chat flutuante (canto inferior esquerdo) ===== */
+.chat{position:fixed;left:clamp(14px,2vw,24px);bottom:clamp(14px,2.4vh,24px);z-index:9100;display:flex;flex-direction:column;align-items:flex-start;gap:12px;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease,visibility .4s}
+.chat.on{opacity:1;visibility:visible;transform:none}
+.chat-botao{width:58px;height:58px;border-radius:50%;border:0;background:#3b903f;color:#ffffff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 14px 34px rgba(0,0,0,.35);transition:transform .25s ease,background .3s ease}
+.chat-botao:hover{transform:scale(1.06);background:#6dc249;color:#0a0a0a}
+.chat-janela{width:min(300px,78vw);padding:16px;border-radius:18px;background:#0c0e0d;border:1px solid rgba(109,194,73,.35);color:#f3f7f2;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.chat-cab{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.chat-cab strong{display:block;font-size:14px}
+.chat-cab small{display:block;font-size:12px;color:#aebcb2}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:#3b903f;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.chat-avatar img{width:56%;height:auto;display:block}
+.chat-fechar{margin-left:auto;border:0;background:transparent;color:#aebcb2;font-size:22px;line-height:1;cursor:pointer}
+.chat-msg{margin:0 0 12px;padding:10px 12px;border-radius:12px;background:rgba(109,194,73,.12);font-size:14px;line-height:1.45}
+.chat-ir{width:100%;padding:10px 12px;border:0;border-radius:999px;background:#6dc249;color:#0a0a0a;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+@media (max-width:900px){ .chat-botao{width:52px;height:52px} }
