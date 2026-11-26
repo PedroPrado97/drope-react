@@ -188,7 +188,7 @@ export default function IphoneShowcase() {
       let inicio = 0
       let introFeita = reduzir
       if (reduzir) aplicarPose(posFinal.rx, posFinal.ry, posFinal.rz, posFinal.z, posFinal.s)
-      else aplicarPose(-0.25, -1.1, 0, -6, 0.82)
+      else aplicarPose(-0.25, window.matchMedia('(max-width: 900px)').matches ? -0.35 : -1.1, 0, -6, 0.82)
 
       const iniciarIntro = () => { inicio = performance.now() }
 
@@ -203,7 +203,8 @@ export default function IphoneShowcase() {
           const eo = easeOut(t)
           const amortece = 1 - t
           const rx = lerp(-0.25, posFinal.rx, eo) + 0.07 * Math.sin(t * Math.PI * 2) * amortece
-          const ry = lerp(-1.1, 2 * Math.PI + posFinal.ry, e)
+          const celular = window.matchMedia('(max-width: 900px)').matches
+          const ry = celular ? lerp(-0.35, posFinal.ry + 0.4 * Math.sin(t * Math.PI), e) : lerp(-1.1, 2 * Math.PI + posFinal.ry, e)
           const rz = 0.03 * Math.sin(t * Math.PI * 3) * amortece
           aplicarPose(rx, ry, rz, lerp(-6, 0, eo), lerp(0.82, 1, eo))
           if (t >= 1) { aplicarPose(posFinal.rx, posFinal.ry, posFinal.rz, 0, 1); introFeita = true; ultimaTroca = agora }

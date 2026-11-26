@@ -1691,3 +1691,6 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 .chat-msg{margin:0 0 12px;padding:10px 12px;border-radius:12px;background:rgba(109,194,73,.12);font-size:14px;line-height:1.45}
 .chat-ir{width:100%;padding:10px 12px;border:0;border-radius:999px;background:#6dc249;color:#0a0a0a;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 @media (max-width:900px){ .chat-botao{width:52px;height:52px} }
+
+/* Chat flutuante no canto inferior direito */
+.chat{left:auto;right:clamp(14px,2vw,24px);align-items:flex-end}
