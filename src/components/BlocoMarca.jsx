@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useIdioma } from '../context/Idioma.jsx'
@@ -58,6 +59,7 @@ function FaqItem({ pergunta, resposta, aberto, onAlternar }) {
 export default function BlocoMarca() {
   const { t } = useIdioma()
   const secRef = useRef(null)
+  const faqRef = useRef(null)
   const [aberta, setAberta] = useState(-1)
 
   useEffect(() => {
@@ -69,8 +71,8 @@ export default function BlocoMarca() {
       const cubo = sec.querySelector('.bm-cubo')
       const mini = sec.querySelector('.bm-mini')
       const expand = sec.querySelector('.bm-expand')
-      const faqWrap = sec.querySelector('.bm-faq-wrap')
-      const itens = sec.querySelectorAll('.bm-faq-item')
+      const faqWrap = faqRef.current
+      const itens = faqWrap ? faqWrap.querySelectorAll('.bm-faq-item') : []
 
       /* 1) a roleta gira sozinha ao chegar e para com a frente */
       let giroFeito = false
@@ -158,7 +160,8 @@ export default function BlocoMarca() {
           <div className="bm-expand-veu" />
         </div>
 
-        <div className="bm-faq-wrap">
+        {createPortal(
+        <div className="bm-faq-wrap" ref={faqRef}>
           <div className="bm-faq">
             <h3 className="bm-faq-titulo">{t('Dúvidas frequentes')}</h3>
             <ul className="fq-lista">
@@ -174,6 +177,7 @@ export default function BlocoMarca() {
             </ul>
           </div>
         </div>
+        , document.body)}
       </div>
     </section>
   )
