@@ -29,4 +29,5 @@ export const MARCAS = [
   { nome: "Ello Estratégia Criativa", src: "/media/ccc4290738ea.webp" },
   { nome: "Raquel Ramos", src: "/media/d902ad948fd8.webp" },
   { nome: "Brisa", src: "/media/602f1763482a.webp" },
+  { nome: "LA FRONTERA", src: "/media/marcas/la-frontera.webp" },
 ]
