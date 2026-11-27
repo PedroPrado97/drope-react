@@ -1698,3 +1698,15 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 /* Quadro de perguntas começa escondido: só aparece quando a expansão chega à tela inteira.
    Assim ele nunca cobre a página (evita travamento e sumiço das seções de baixo). */
 .bm-faq-wrap{visibility:hidden;opacity:0;pointer-events:auto}
+
+/* ===== Ajustes do celular ===== */
+@media (max-width:900px){
+  /* capa: texto e botões com margem lateral (antes encostavam na borda da tela) */
+  .hero-frame{padding:0 20px 40px;box-sizing:border-box}
+  .hero-side .actions{padding:0}
+  /* 5 movimentos: o título fixo ganha fundo, para as etapas não aparecerem por baixo dele */
+  .proc-head{background:rgba(242,242,242,.94) !important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  /* botão de chat sobe acima da barra flutuante quando ela está na tela */
+  .chat{transition:opacity .4s ease,transform .4s ease,visibility .4s,bottom .5s cubic-bezier(.2,.7,.2,1)}
+  .dock.on:not(.recolhido) ~ .chat{bottom:calc(22px + 66px + 12px)}
+}
