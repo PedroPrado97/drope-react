@@ -28,8 +28,8 @@ export default function Processo() {
           el.style.filter = ''
           const limite = head ? head.getBoundingClientRect().bottom : 0
           const d = el.getBoundingClientRect().top - limite
-          /* visível enquanto está abaixo do título; só some ao passar por baixo dele */
-          el.style.opacity = clamp((d + 140) / 120).toFixed(3)
+          /* visível enquanto está abaixo do título; some ao chegar nele, antes de passar por baixo */
+          el.style.opacity = clamp((d + 40) / 140).toFixed(3)
           return
         }
         /* zona de leitura: a etapa fica inteira em destaque; a transição ocorre no trecho final */
