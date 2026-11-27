@@ -83,16 +83,14 @@ export default function BlocoMarca() {
       })
       giro.fromTo(cubo, { rotationX: 0 }, { rotationX: -360 * 2, duration: 3.6, ease: 'power2.out' })
 
+      let saiu = false
+
       /* 2) expansão da imagem pequena até a tela inteira, acompanhando a rolagem (vai e volta) */
       const estado = { p: 0 }
       const desenhar = (p) => {
         const r = mini.getBoundingClientRect()
         const W = window.innerWidth, H = window.innerHeight
         const e = easeInOut(p)
-        /* quando a seção termina, o quadro de dúvidas e a imagem (fixos na tela) sobem junto
-           com a rolagem, revelando o formulário em vez de ficar por cima dele */
-        const saida = Math.min(0, sec.getBoundingClientRect().bottom - H)
-        gsap.set([expand, faqWrap], { y: saida })
         gsap.set(expand, {
           left: lerp(r.left, 0, e),
           top: lerp(r.top, 0, e),
@@ -101,7 +99,7 @@ export default function BlocoMarca() {
           borderRadius: lerp(4, 0, e),
           autoAlpha: p > 0 ? 1 : 0,
         })
-        gsap.set(faqWrap, { autoAlpha: clamp((p - 0.7) / 0.3) })
+        gsap.set(faqWrap, { autoAlpha: saiu ? 0 : clamp((p - 0.7) / 0.3) })
         /* a roleta some assim que a expansão começa, para não aparecer atrás da imagem */
         gsap.set(cubo.parentNode, { autoAlpha: 1 - clamp(p / 0.08) })
         gsap.set(itens, { opacity: clamp((p - 0.8) / 0.2), y: (1 - clamp((p - 0.8) / 0.2)) * 18 })
@@ -132,13 +130,12 @@ export default function BlocoMarca() {
         },
       })
 
-      /* depois do fim da seção, redesenha a cada rolagem para o quadro acompanhar a saída */
+      /* ao sair da seção para baixo, o quadro de perguntas some (ele fica fora da seção, então não acompanha a rolagem) */
       const sair = ScrollTrigger.create({
         trigger: sec,
         start: 'bottom bottom',
-        end: 'bottom top',
-        onUpdate: () => desenhar(estado.p),
-        onLeaveBack: () => aplicar(),
+        onEnter: () => { saiu = true; gsap.set(faqWrap, { autoAlpha: 0 }) },
+        onLeaveBack: () => { saiu = false; aplicar() },
       })
 
       return () => { gatilho.kill(); expansao.kill(); sair.kill(); giro.kill() }

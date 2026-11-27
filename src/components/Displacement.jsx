@@ -23,8 +23,7 @@ export default function Displacement() {
       if (!el) return
       const y = el.getBoundingClientRect().top + window.pageYOffset
       window.scrollTo({ top: y, behavior: 'instant' })
-      /* o endereço não muda (sem /#contato etc.); se a página abriu com #, limpa */
-      if (location.hash) history.replaceState(null, '', location.pathname + location.search)
+      history.replaceState(null, '', alvo)
     }
 
     const bloquear = (e) => { if (ocupado) e.preventDefault() }
