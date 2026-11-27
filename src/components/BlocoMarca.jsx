@@ -91,8 +91,11 @@ export default function BlocoMarca() {
         const e = easeInOut(p)
         /* quando a seção termina, a foto e o quadro de dúvidas (fixos na tela) sobem junto
            com a rolagem e revelam o formulário, em vez de ficarem presos por cima dele */
-        const saida = Math.min(0, sec.getBoundingClientRect().bottom - H)
+        const fimSecao = sec.getBoundingClientRect().bottom
+        const saida = Math.min(0, fimSecao - H)
         gsap.set([expand, faqWrap], { y: saida })
+        /* a seção já saiu da tela (ex.: arrasto rápido no celular): esconde de vez */
+        if (fimSecao <= 0) { gsap.set([expand, faqWrap], { autoAlpha: 0 }); return }
         gsap.set(expand, {
           left: lerp(r.left, 0, e),
           top: lerp(r.top, 0, e),
@@ -101,7 +104,7 @@ export default function BlocoMarca() {
           borderRadius: lerp(4, 0, e),
           autoAlpha: p > 0 ? 1 : 0,
         })
-        gsap.set(faqWrap, { autoAlpha: clamp((p - 0.7) / 0.3) })
+        gsap.set(faqWrap, { autoAlpha: clamp((p - 0.6) / 0.25) })
         /* a roleta vai sumindo enquanto a foto cresce a partir da miniatura (sem tela vazia) */
         gsap.set(cubo.parentNode, { autoAlpha: 1 - clamp(p / 0.4) })
         gsap.set(itens, { opacity: clamp((p - 0.8) / 0.2), y: (1 - clamp((p - 0.8) / 0.2)) * 18 })
@@ -138,6 +141,8 @@ export default function BlocoMarca() {
         start: 'bottom bottom',
         end: 'bottom top',
         onUpdate: () => desenhar(estado.p),
+        onLeave: () => desenhar(estado.p),
+        onEnterBack: () => desenhar(estado.p),
         onLeaveBack: () => aplicar(),
       })
 

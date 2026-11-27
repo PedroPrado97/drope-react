@@ -23,6 +23,8 @@ export default function useCursor() {
     const onOver = (e) => {
       const alvo = e.target.closest && e.target.closest('a, button, .project')
       ring.classList.toggle('hov', !!alvo)
+      /* sobre logos e fotos o halo verde some, para não tingir as cores */
+      document.body.classList.toggle('cur-midia', !!(e.target.closest && e.target.closest('.mq-tile')))
     }
     const reduzir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const loop = () => {
@@ -42,6 +44,7 @@ export default function useCursor() {
       document.removeEventListener('mouseleave', onLeave)
       document.removeEventListener('mouseover', onOver)
       glow.remove(); ring.remove()
+      document.body.classList.remove('cur-midia')
     }
   }, [])
 }
