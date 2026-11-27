@@ -1756,3 +1756,17 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 @media (max-width:900px){ .bm-stage{--s:min(78vw,380px);--h:min(54vw,240px,30vh)} .bm-frente p{font-size:clamp(17px,5vw,26px)} }
 /* véu mais leve: a foto aparece de verdade enquanto cresce */
 .bm-expand-veu{background:linear-gradient(180deg,rgba(18,49,44,.12),rgba(18,49,44,.35))}
+
+/* ===== Faixa de marcas: o quadrinho sobe no hover sem ter a borda cortada ===== */
+.mq{padding-top:10px;padding-bottom:10px}
+/* o halo verde do cursor some em cima dos logos (antes esverdeava as cores) */
+.cur-midia .cur-glow{opacity:0 !important}
+
+/* ===== Dúvidas no celular: o quadro não prende a rolagem ===== */
+/* no celular o quadro fixo tinha rolagem própria, então arrastar o dedo em cima dele rolava o
+   quadro em vez da página e a pessoa ficava presa nas dúvidas. Agora o toque passa para a página
+   e só as perguntas recebem toques */
+@media (max-width:900px){
+  .bm-faq-wrap{overflow:hidden !important;pointer-events:none !important;touch-action:pan-y}
+  .bm-faq-wrap .fq-btn{pointer-events:auto;touch-action:pan-y}
+}
