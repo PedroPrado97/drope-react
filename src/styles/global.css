@@ -1748,3 +1748,11 @@ main{background:radial-gradient(60% 90% at 18% 0%,rgba(18,49,44,.55),transparent
 }
 @media (max-width:900px){ .proc-ghost{display:none} }
 @media (prefers-reduced-motion:reduce){ .proc-ghost span{animation:none} }
+
+/* ===== Prisma "Toda marca tem algo a dizer": cabe na tela e a expansão mostra a foto ===== */
+/* o prisma também respeita a altura da tela (antes passava dela e ficava cortado) */
+.bm-stage{--s:min(58vw,760px,62vh);--h:min(40vw,420px,34vh)}
+.bm-frente p{font-size:clamp(18px,min(2.4vw,4.4vh),40px)}
+@media (max-width:900px){ .bm-stage{--s:min(78vw,380px);--h:min(54vw,240px,30vh)} .bm-frente p{font-size:clamp(17px,5vw,26px)} }
+/* véu mais leve: a foto aparece de verdade enquanto cresce */
+.bm-expand-veu{background:linear-gradient(180deg,rgba(18,49,44,.12),rgba(18,49,44,.35))}
