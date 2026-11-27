@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useIdioma } from '../context/Idioma.jsx'
 import Tecido from './Tecido.jsx'
 import { ETAPAS } from '../data/processo.js'
 import { clamp, easeInOut } from '../utils/numeros.js'
+
+gsap.registerPlugin(ScrollTrigger)
+const reduzirMovimento = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 
 export default function Processo() {
@@ -84,6 +89,34 @@ export default function Processo() {
     }
   }, [])
 
+  /* Entrada cinematográfica: o "5" assenta saindo do desfoque, as linhas do título sobem
+     de dentro de uma máscara e as etapas do menu entram em sequência */
+  useEffect(() => {
+    const sec = ref.current
+    if (!sec || reduzirMovimento()) return
+    const ctx = gsap.context(() => {
+      /* o CSS centraliza estrela e número com translateY(-50%); o GSAP assume esse transform */
+      gsap.set('.proc-geo, .proc-ghost', { y: 0, yPercent: -50 })
+      gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 70%', once: true } })
+        .from('.proc-num5', { scale: 1.6, opacity: 0, filter: 'blur(18px)', rotation: -8, duration: 1.6, ease: 'expo.out', clearProps: 'filter' }, 0)
+        .from('.proc-txt > span', { yPercent: 110, duration: 1.2, stagger: 0.12, ease: 'expo.out' }, 0.2)
+        .from('.proc-item', { x: -30, opacity: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'transform,opacity' }, 0.5)
+        .from('.proc-geo', { scale: 0.6, opacity: 0, rotation: -90, duration: 1.8, ease: 'expo.out' }, 0.3)
+        .from('.proc-ghost', { scale: 0.6, opacity: 0, duration: 1.4, ease: 'expo.out' }, 0.6)
+    }, sec)
+    return () => ctx.revert()
+  }, [])
+
+  /* A cada etapa, a estrela dá um giro forte com um pulso */
+  const primeiraEtapa = useRef(true)
+  useEffect(() => {
+    if (primeiraEtapa.current) { primeiraEtapa.current = false; return }
+    const geo = ref.current && ref.current.querySelector('.proc-geo')
+    if (!geo || reduzirMovimento()) return
+    gsap.to(geo, { rotation: ativo * 72, duration: 1.6, ease: 'expo.out', overwrite: 'auto' })
+    gsap.fromTo(geo, { scale: 0.88 }, { scale: 1, duration: 1.2, ease: 'elastic.out(1, 0.5)' })
+  }, [ativo])
+
   /* Clicar numa etapa leva direto a ela */
   const irPara = (i) => {
     const sec = ref.current
@@ -131,7 +164,11 @@ export default function Processo() {
               aria-hidden={ativo !== i}
             >
               <span className="proc-big">{e.n}</span>
-              <h3 className="proc-verb">{t(e.verbo)}</h3>
+              <h3 className="proc-verb" aria-label={t(e.verbo)}>
+                {[...t(e.verbo)].map((c, k) => (
+                  <span key={k} className="ch" style={{ '--k': k }} aria-hidden="true">{c}</span>
+                ))}
+              </h3>
               <p className="proc-prop">{t(e.proposito)}</p>
               <ul className="proc-busca">
                 {e.buscamos.map((b) => <li key={b}>{t(b)}</li>)}
@@ -139,6 +176,10 @@ export default function Processo() {
             </article>
           ))}
 
+          {/* número da etapa no centro da estrela; a key refaz a animação a cada troca */}
+          <div className="proc-ghost" aria-hidden="true">
+            <span key={ativo}>{ETAPAS[ativo] ? ETAPAS[ativo].n : ''}</span>
+          </div>
           <div className="proc-geo" aria-hidden="true">
             <div className="proc-spin">
               <svg className="proc-mark" viewBox="0 0 100 100">
